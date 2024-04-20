@@ -166,7 +166,7 @@ public class ParentLog : MonoBehaviour
             Vector3 ImpulsDirection = new Vector3(6, 0, 0);
 
             // Change the direction of the impuls depending on the type of log that was hit.
-            if (activeSide == ChildLog.ActiveChildSide.Left)
+            if (activeSide == ChildLog.ActiveChildSide.Right)
             {
                 ImpulsDirection *= -1;
             }
