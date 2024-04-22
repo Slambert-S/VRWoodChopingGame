@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 public class TreeManager : MonoBehaviour
 {
@@ -12,14 +13,27 @@ public class TreeManager : MonoBehaviour
     // Start is called before the first frame update
     public int createdChildNumber = 0;
     public GameObject[] logPrefab;
+    public int wantedNumberLog =4;
     
     public bool canInteractWithTree = true;
     private bool gameIsStarted = false;
+
+    [Header("Debug control")]
+    public bool startTreeEmpty = false;
     void Start()
     {
-        SetUpAllChild();
-        this.bottomLog = this.transform.GetChild(0).gameObject;
-        this.topLog = this.transform.GetChild(this.transform.childCount - 1).gameObject;
+        if (startTreeEmpty == false)
+        {
+            SetUpAllChild();
+            this.bottomLog = this.transform.GetChild(0).gameObject;
+            this.topLog = this.transform.GetChild(this.transform.childCount - 1).gameObject;
+            
+        }
+        else
+        {
+            setUpNewTree();
+
+        }
         GameEvents.current.onTimerOver += TimeOverAdapter;
     }
 
@@ -127,6 +141,35 @@ public class TreeManager : MonoBehaviour
         }
     }
 
+    //Set up new tree objective
+    /*
+     * Creat a new log in the bottom possition.
+     * Set the new log as top and bottom of the tree stack.
+     * Creat the next top child X(right now 4) time 
+     * 
+     * 
+     * */
+
+    public void setUpNewTree()
+    {
+        createdChildNumber = 0;
+        string newName = "Log number " + createdChildNumber;
+        createdChildNumber++;
+        GameObject newLog = SelectAndInstatiateNewLog();
+        newLog.transform.name = newName;
+
+        // [Objective] :  Set up the anchor link.
+        ParentLog newLogScriptRef = newLog.GetComponent<ParentLog>();
+        newLogScriptRef.SetUpObjectRef();
+        topLog = newLog;
+        bottomLog = newLog;
+        for (int i = 1; i < wantedNumberLog; i++)
+        {
+            CreateNextTopChild();
+        }
+
+    }
+
     public void SetCanInteractWithTree(bool newValue)
     {
         canInteractWithTree = newValue;
@@ -159,7 +202,14 @@ public class TreeManager : MonoBehaviour
 
         if(newLog != null)
         {
-            newLog.transform.position = topLog.transform.position;
+            if(topLog != null)
+            {
+                newLog.transform.position = topLog.transform.position;
+            }
+            else
+            {
+                newLog.transform.position = originalBottomLogPositionRef.position;
+            }
             newLog.transform.parent = this.gameObject.transform;
             ParentLog reference = null;
             try

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using UnityEngine.UI;
 using TMPro;
 
 public class UIMultyTextTool : MonoBehaviour
@@ -11,6 +12,15 @@ public class UIMultyTextTool : MonoBehaviour
     private int activePageIndex = 0;
     public int pageToBeOpenFirst = 0;
 
+    [Header("Button Used")]
+    [SerializeField]
+    private Button nextButton;
+    [SerializeField]
+    private Button previousButton;
+    [SerializeField]
+    private Button hideButton;
+
+    [Header("Edit mode control")]
     public int EditorActivePage = 0;
 
     // Start is called before the first frame update
@@ -119,6 +129,36 @@ public class UIMultyTextTool : MonoBehaviour
     private void ShowPage(int targetedPage)
     {
         pagesOfText[targetedPage].gameObject.SetActive(true);
+
+        if(targetedPage < pagesOfText.Length - 1)
+        {
+            HideButton(hideButton);
+            ShowButton(nextButton);
+            ShowButton(previousButton);
+        }
+
+        if(targetedPage == 0)
+        {
+            HideButton(previousButton);
+            //ShowButton(nextButton);
+        }
+        else if (targetedPage == pagesOfText.Length-1)
+        {
+            //if the last page is display
+            HideButton(nextButton);
+            ShowButton(hideButton);
+            ShowButton(previousButton);
+        }
+    }
+
+    private void HideButton(Button button)
+    {
+        button.gameObject.SetActive(false);
+    }
+
+    private void ShowButton(Button button)
+    {
+        button.gameObject.SetActive(true);
     }
 }
 

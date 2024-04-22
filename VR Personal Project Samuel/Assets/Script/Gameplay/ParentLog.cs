@@ -25,6 +25,8 @@ public class ParentLog : MonoBehaviour
     private Transform objectTopAnchorRef;
     [SerializeField]
     private Transform objectBottomAnchorRef;
+    private bool isLaunched =false;
+    private Vector3 positionBeforeLaunch;
    
 
 
@@ -41,7 +43,15 @@ public class ParentLog : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       // LinkNeighbour();
+        // LinkNeighbour();
+        if (isLaunched)
+        {
+            Debug.Log(Vector3.Distance(this.transform.position, positionBeforeLaunch));
+            if(Vector3.Distance(this.transform.position, positionBeforeLaunch) >= 1)
+            {
+                this.gameObject.GetComponent<BoxCollider>().isTrigger = false;
+            }
+        }
     }
     private void LateUpdate()
     {
@@ -170,6 +180,8 @@ public class ParentLog : MonoBehaviour
             {
                 ImpulsDirection *= -1;
             }
+            positionBeforeLaunch = this.transform.position;
+            isLaunched = true;
             this.gameObject.GetComponent<Rigidbody>().AddForce(ImpulsDirection, ForceMode.Impulse);
 
             //We want to destroy the cube
@@ -237,6 +249,7 @@ public class ParentLog : MonoBehaviour
         //SetUpShader for active log
     }
 
+    
     public IEnumerator TotalDestruction(float time)
     {
         yield return new WaitForSeconds(time);
