@@ -11,6 +11,8 @@ public class StatTraking : MonoBehaviour
     private int goodLogHitCount;
     private int badLogHitCount;
     private int livesRemaining;
+
+    private int nbStartingLife = 3;
     private void Awake()
     {
         if (current != null && current != this)
@@ -22,15 +24,24 @@ public class StatTraking : MonoBehaviour
             current = this;
             goodLogHitCount = 0;
             badLogHitCount = 0;
-            livesRemaining = 3;
+            livesRemaining = nbStartingLife;
         }
        
     }
-   
+
+    private void Start()
+    {
+        GameEvents.current.onGameReset += ResetStat;
+    }
+
     public void RemoveLife()
     {
         livesRemaining -= 1;
         GameUIManager.current.UpdateLive(livesRemaining);
+        if(livesRemaining == 0)
+        {
+            GameEvents.current.GameOver();
+        }
     }
     public int GetLifeRemaining()
     {
@@ -59,4 +70,13 @@ public class StatTraking : MonoBehaviour
         return badLogHitCount;
     }
 
+    private void ResetStat()
+    {
+        goodLogHitCount = 0;
+        badLogHitCount = 0;
+        livesRemaining = nbStartingLife;
+        GameUIManager.current.UpdateBadHit(badLogHitCount);
+        GameUIManager.current.UpdateGoodHit(goodLogHitCount);
+        GameUIManager.current.UpdateLive(livesRemaining);
+    }
 }

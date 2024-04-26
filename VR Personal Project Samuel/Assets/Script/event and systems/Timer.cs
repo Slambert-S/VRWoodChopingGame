@@ -13,6 +13,8 @@ public class Timer : MonoBehaviour
         targetTime = intervalTime;
         GameEvents.current.onLogIsRemoved += ResetTimer;
         GameEvents.current.onGameStart += StartTimer;
+        GameEvents.current.onGameOver += StopTimer;
+        GameEvents.current.onGameReset += ResetTimer;
     }
 
     void Update()
@@ -51,6 +53,7 @@ public class Timer : MonoBehaviour
     {
         // isTimerOn = false;
         targetTime = intervalTime;
+        GameUIManager.current.UpdateCountdownTimer(intervalTime);
         //isTimerOn = true;
     }
     // how to stop / start / reset Timer

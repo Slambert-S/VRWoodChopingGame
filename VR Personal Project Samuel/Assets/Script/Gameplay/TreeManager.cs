@@ -5,6 +5,7 @@ using UnityEditor;
 
 public class TreeManager : MonoBehaviour
 {
+    public GameManagerWoodCutting gameManagerRef;
     public float yOfsetOfChild = 0;
     public GameObject bottomLog;
     public GameObject topLog;
@@ -68,12 +69,20 @@ public class TreeManager : MonoBehaviour
 
     public void ReplaceBottomChild(bool goodSide)
     {
-        if(gameIsStarted == false)
+        //prevent the game from starting if required.
+        if(gameManagerRef.gameCanStart == false)
+        {
+            Debug.Log("Can start the game yet");
+            return;
+        }
+
+        if (gameManagerRef.gameIsStarted == false )
         {
             GameEvents.current.GameIsStarted();
-            gameIsStarted = true;
+            //gameIsStarted = true;
         }
         // [Objective] : Prevent te player to keep interacting with the tree.
+        //target the AXE
         SetCanInteractWithTree(false);
 
         // get the bottom log section and get the parent log script

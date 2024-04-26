@@ -38,4 +38,34 @@ public class GameEvents : MonoBehaviour
             onGameStart();
         }
     }
+
+    public event Action onGameStop;
+    public void GameIsStoped()
+    {
+        if(onGameStop != null)
+        {
+            onGameStop();
+        }
+    }
+
+    public event Action onGameOver;
+    public void GameOver()
+    {
+        if (onGameOver != null)
+        {
+            onGameOver();
+        }
+    }
+
+    public event Action onGameReset;
+    public void GameReset()
+    {
+        if (onGameReset != null)
+        {
+            onGameReset();
+        }
+    }
+
+
+
 }

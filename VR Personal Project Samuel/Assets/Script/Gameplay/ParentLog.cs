@@ -202,6 +202,11 @@ public class ParentLog : MonoBehaviour
 
     }
 
+    private void RemoveObjectWhenGameOver()
+    {
+
+    }
+
     /// <summary>
     /// Methode call to apply and change required when a log is created.
     /// Currently only change the angle of the log.
