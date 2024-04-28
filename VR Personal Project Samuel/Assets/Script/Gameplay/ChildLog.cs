@@ -29,9 +29,12 @@ public class ChildLog : MonoBehaviour
         /// if yes -> call function in the parent script
     }
 
-    private void TellParentHitWasDetected( Vector3 directionOfhit)
+    private void TellParentHitWasDetected(Vector3 directionOfhit)
     {
-        parentRef.LearnWhatChildWasHit(childSide, directionOfhit);
+        if (parentRef != null)
+        { 
+            parentRef.LearnWhatChildWasHit(childSide, directionOfhit);
+        }
     }
     public enum ActiveChildSide { None,Left,Right};
 }

@@ -27,7 +27,13 @@ public class ParentLog : MonoBehaviour
     private Transform objectBottomAnchorRef;
     private bool isLaunched =false;
     private Vector3 positionBeforeLaunch;
-   
+    [SerializeField]
+    private bool isSpinning = false;
+    public float rotationSpeed = 500f;
+    [SerializeField]
+    private int rotationDirection = 1;
+
+
 
 
     [SerializeField]
@@ -38,6 +44,7 @@ public class ParentLog : MonoBehaviour
     void Start()
     {
         SetUpObjectRef();
+        GameEvents.current.onGameOver += RemoveObjectWhenGameOver;
     }
 
     // Update is called once per frame
@@ -46,11 +53,16 @@ public class ParentLog : MonoBehaviour
         // LinkNeighbour();
         if (isLaunched)
         {
-            Debug.Log(Vector3.Distance(this.transform.position, positionBeforeLaunch));
+          //  Debug.Log(Vector3.Distance(this.transform.position, positionBeforeLaunch));
             if(Vector3.Distance(this.transform.position, positionBeforeLaunch) >= 1)
             {
                 this.gameObject.GetComponent<BoxCollider>().isTrigger = false;
             }
+        }
+
+        if (isSpinning)
+        {
+            transform.Rotate(Vector3.forward * rotationSpeed * rotationDirection * Time.deltaTime);
         }
     }
     private void LateUpdate()
@@ -191,10 +203,14 @@ public class ParentLog : MonoBehaviour
         }
         else //IF the log is hit on the wrong side
         {
-
-            LeanTween.scale(this.gameObject, new Vector3(0, 0, 0), 0.25f);
+            //need to check if the current life is 1 if yes then do not start total destruction
+            //LeanTween.scale(this.gameObject, new Vector3(0, 0, 0), 0.25f);
             LeanTween.moveLocalY(this.gameObject, this.gameObject.transform.position.y - 1, 0.25f);
-            StartCoroutine(TotalDestruction(0.75f));
+            if(StatTraking.current.GetLifeRemaining() != 1) {
+
+                StartCoroutine(TotalDestruction(0.75f));
+                Debug.Log(StatTraking.current.GetLifeRemaining());
+            }
             StatTraking.current.IncreasBadLogHit();
             StatTraking.current.RemoveLife();
         }
@@ -204,7 +220,14 @@ public class ParentLog : MonoBehaviour
 
     private void RemoveObjectWhenGameOver()
     {
-
+        isSpinning = true;
+        rotationDirection = Random.Range(0, 2) * 2 - 1;
+        //LeanTween.scale(this.gameObject, new Vector3(0, 0, 0), 0.25f);
+        /*if (this.gameObject != null)
+        {
+        }*/
+        StartCoroutine(TotalDestruction(0.75f));
+        
     }
 
     /// <summary>
@@ -258,7 +281,11 @@ public class ParentLog : MonoBehaviour
     public IEnumerator TotalDestruction(float time)
     {
         yield return new WaitForSeconds(time);
-        Destroy(this.gameObject);
+        if(this.gameObject != null)
+        {
+
+            Destroy(this.gameObject);
+        }
     }
 
 

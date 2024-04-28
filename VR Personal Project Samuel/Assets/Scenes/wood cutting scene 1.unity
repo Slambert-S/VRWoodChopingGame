@@ -809,7 +809,7 @@ PrefabInstance:
     - target: {fileID: 6598815579406187037, guid: 9f5a24a380916d14db9775daab4fe333,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f5a24a380916d14db9775daab4fe333, type: 3}
@@ -10758,6 +10758,9 @@ MonoBehaviour:
   bottomNeighbourAnchor: {fileID: 0}
   objectTopAnchorRef: {fileID: 0}
   objectBottomAnchorRef: {fileID: 0}
+  isSpinning: 0
+  rotationSpeed: 30
+  rotationDirection: 1
   yPosOfset: 0
 --- !u!65 &2715014671238379864
 BoxCollider:
@@ -10983,6 +10986,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 207854893}
     m_Modifications:
+    - target: {fileID: 834266176367509419, guid: c7fac948657741b48b2dc6e8459c4e5c,
+        type: 3}
+      propertyPath: isSpinning
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 834266176367509419, guid: c7fac948657741b48b2dc6e8459c4e5c,
+        type: 3}
+      propertyPath: rotationSpeed
+      value: 500
+      objectReference: {fileID: 0}
     - target: {fileID: 3810186385688649807, guid: c7fac948657741b48b2dc6e8459c4e5c,
         type: 3}
       propertyPath: m_RootOrder
@@ -11142,6 +11155,9 @@ MonoBehaviour:
   bottomNeighbourAnchor: {fileID: 0}
   objectTopAnchorRef: {fileID: 0}
   objectBottomAnchorRef: {fileID: 0}
+  isSpinning: 0
+  rotationSpeed: 30
+  rotationDirection: 1
   yPosOfset: 0
 --- !u!1 &6085085376954236449
 GameObject:

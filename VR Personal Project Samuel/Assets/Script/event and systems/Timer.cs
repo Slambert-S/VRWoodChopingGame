@@ -56,6 +56,12 @@ public class Timer : MonoBehaviour
         GameUIManager.current.UpdateCountdownTimer(intervalTime);
         //isTimerOn = true;
     }
+
+    public void GameOver()
+    {
+        StopTimer();
+        
+    }
     // how to stop / start / reset Timer
 
 }
