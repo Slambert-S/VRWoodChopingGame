@@ -12,7 +12,7 @@ public class GameManagerWoodCutting : MonoBehaviour
     {
         GameEvents.current.onGameStart += SetGameToActive;
         GameEvents.current.onGameOver += GameOver;
-        GameEvents.current.onGameReset += GameReset;
+        GameEvents.onGameReset += GameReset;
 
     }
 

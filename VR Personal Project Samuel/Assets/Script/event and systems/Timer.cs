@@ -14,7 +14,7 @@ public class Timer : MonoBehaviour
         GameEvents.current.onLogIsRemoved += ResetTimer;
         GameEvents.current.onGameStart += StartTimer;
         GameEvents.current.onGameOver += StopTimer;
-        GameEvents.current.onGameReset += ResetTimer;
+        GameEvents.onGameReset += ResetTimer;
     }
 
     void Update()

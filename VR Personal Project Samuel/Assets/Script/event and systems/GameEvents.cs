@@ -57,8 +57,8 @@ public class GameEvents : MonoBehaviour
         }
     }
 
-    public event Action onGameReset;
-    public void GameReset()
+    public static event Action onGameReset;
+    public  void GameReset()
     {
         if (onGameReset != null)
         {

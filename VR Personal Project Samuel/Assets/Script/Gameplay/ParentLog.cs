@@ -43,8 +43,17 @@ public class ParentLog : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+       
         SetUpObjectRef();
+        
+    }
+    void OnEnable()
+    {
         GameEvents.current.onGameOver += RemoveObjectWhenGameOver;
+    }
+    void OnDisable()
+    {
+        GameEvents.current.onGameOver -= RemoveObjectWhenGameOver;
     }
 
     // Update is called once per frame
@@ -204,10 +213,9 @@ public class ParentLog : MonoBehaviour
         else //IF the log is hit on the wrong side
         {
             //need to check if the current life is 1 if yes then do not start total destruction
-            //LeanTween.scale(this.gameObject, new Vector3(0, 0, 0), 0.25f);
-            LeanTween.moveLocalY(this.gameObject, this.gameObject.transform.position.y - 1, 0.25f);
             if(StatTraking.current.GetLifeRemaining() != 1) {
-
+                LeanTween.scale(this.gameObject, new Vector3(0, 0, 0), 0.25f);
+                LeanTween.moveLocalY(this.gameObject, this.gameObject.transform.position.y - 1, 0.25f);
                 StartCoroutine(TotalDestruction(0.75f));
                 Debug.Log(StatTraking.current.GetLifeRemaining());
             }
@@ -218,15 +226,15 @@ public class ParentLog : MonoBehaviour
 
     }
 
-    private void RemoveObjectWhenGameOver()
+    public void RemoveObjectWhenGameOver()
     {
         isSpinning = true;
         rotationDirection = Random.Range(0, 2) * 2 - 1;
-        //LeanTween.scale(this.gameObject, new Vector3(0, 0, 0), 0.25f);
+        LeanTween.scale(this.gameObject, new Vector3(0, 0, 0), 1.5f);
         /*if (this.gameObject != null)
         {
         }*/
-        StartCoroutine(TotalDestruction(0.75f));
+        StartCoroutine(TotalDestruction(2.0f));
         
     }
 

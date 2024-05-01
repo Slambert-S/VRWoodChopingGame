@@ -35,13 +35,31 @@ public class TreeManager : MonoBehaviour
             setUpNewTree();
 
         }
-        GameEvents.current.onTimerOver += TimeOverAdapter;
+
+       
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnEnable()
     {
-        
+       // GameEvents.current.onTimerOver += TimeOverAdapter;
+       /*if(GameEvents.current != null)
+        {
+            GameEvents.onGameReset += setUpNewTree;
+
+        }
+        else
+        {
+            Debug.Log("Game event is nopt yet initialised");
+        }*/
+
+        GameEvents.current.onTimerOver += TimeOverAdapter;
+        GameEvents.onGameReset += setUpNewTree;
+    }
+
+    public void OnDisable()
+    {
+        GameEvents.current.onTimerOver -= TimeOverAdapter;
+        GameEvents.onGameReset -= setUpNewTree;
     }
 
     private void SetUpAllChild()
@@ -97,12 +115,25 @@ public class TreeManager : MonoBehaviour
 
             // [Objective] : Removing the log that was hit.
             currentBottomLogRef.RemoveObjectFromScene(goodSide);
-            bottomLog = nextBottomLog;
+            
+            //Check if the wrong side is hit and the game would finish.
+            //if => 
+            if(goodSide == false  && StatTraking.current.GetLifeRemaining() == 0)
+            {
+                //we filter the hit that would lead to a game over
+            }
+            else
+            {
+                bottomLog = nextBottomLog;
+                // [Objective] : move the tree down
+                LeanTween.move(bottomLog, originalBottomLogPositionRef, 0.25f).setOnComplete(ToExecuteAfterFinishingTweening);
+                //CreateNextTopChild();
 
-            // [Objective] : move the tree down
-            LeanTween.move(bottomLog, originalBottomLogPositionRef, 0.25f).setOnComplete(ToExecuteAfterFinishingTweening);
+            }
 
-            //CreateNextTopChild();
+            //Separate the last hit
+
+
 
         }
 
@@ -161,6 +192,7 @@ public class TreeManager : MonoBehaviour
 
     public void setUpNewTree()
     {
+        Debug.Log("in SetUpNewTree");
         createdChildNumber = 0;
         string newName = "Log number " + createdChildNumber;
         createdChildNumber++;
@@ -172,6 +204,7 @@ public class TreeManager : MonoBehaviour
         newLogScriptRef.SetUpObjectRef();
         topLog = newLog;
         bottomLog = newLog;
+        bottomLog.gameObject.GetComponent<ParentLog>().SetAsActiveLog();
         for (int i = 1; i < wantedNumberLog; i++)
         {
             CreateNextTopChild();
