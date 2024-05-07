@@ -11,8 +11,37 @@ public class Timer : MonoBehaviour
     void Start()
     {
         targetTime = intervalTime;
-        GameEvents.current.onLogIsRemoved += ResetTimer;
-        GameEvents.current.onGameStart += StartTimer;
+       
+    }
+
+    private void OnEnable()
+    {
+        if (GameEvents.current == null)
+        {
+            Debug.LogWarning("GameEvent is not yet created");
+        }
+        else
+        {
+            GameEvents.current.onLogIsRemoved += ResetTimer;
+            GameEvents.current.onGameStart += StartTimer;
+            GameEvents.current.onGameOver += StopTimer;
+            GameEvents.onGameReset += ResetTimer;
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (GameEvents.current == null)
+        {
+            Debug.LogWarning("GameEvent is not yet created");
+        }
+        else
+        {
+            GameEvents.current.onLogIsRemoved -= ResetTimer;
+            GameEvents.current.onGameStart -= StartTimer;
+            GameEvents.current.onGameOver -= StopTimer;
+            GameEvents.onGameReset -= ResetTimer;
+        }
     }
 
     void Update()
@@ -51,7 +80,14 @@ public class Timer : MonoBehaviour
     {
         // isTimerOn = false;
         targetTime = intervalTime;
+        GameUIManager.current.UpdateCountdownTimer(intervalTime);
         //isTimerOn = true;
+    }
+
+    public void GameOver()
+    {
+        StopTimer();
+        
     }
     // how to stop / start / reset Timer
 

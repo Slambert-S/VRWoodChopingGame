@@ -14,6 +14,7 @@ public class ParentLog : MonoBehaviour
     private Vector3 hitDirection;
     [SerializeField]
     private bool isActiveBottomLog = false;
+    private HapticInteractable controlerToSendFeedBack;
 
     // Section used to handle mouvement and destruction
     [SerializeField]
@@ -25,7 +26,15 @@ public class ParentLog : MonoBehaviour
     private Transform objectTopAnchorRef;
     [SerializeField]
     private Transform objectBottomAnchorRef;
-   
+    private bool isLaunched =false;
+    private Vector3 positionBeforeLaunch;
+    [SerializeField]
+    private bool isSpinning = false;
+    public float rotationSpeed = 500f;
+    [SerializeField]
+    private int rotationDirection = 1;
+
+
 
 
     [SerializeField]
@@ -35,13 +44,50 @@ public class ParentLog : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+       
         SetUpObjectRef();
+        
+    }
+    void OnEnable()
+    {
+        if(GameEvents.current == null)
+        {
+            Debug.LogWarning("GameEvent is not yet created");
+        }
+        else
+        {
+            GameEvents.current.onGameOver += RemoveObjectWhenGameOver;
+        }
+    }
+    void OnDisable()
+    {
+        if (GameEvents.current == null)
+        {
+            Debug.LogWarning("GameEvent is not yet created");
+        }
+        else
+        {
+            GameEvents.current.onGameOver -= RemoveObjectWhenGameOver;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-       // LinkNeighbour();
+        // LinkNeighbour();
+        if (isLaunched)
+        {
+          //  Debug.Log(Vector3.Distance(this.transform.position, positionBeforeLaunch));
+            if(Vector3.Distance(this.transform.position, positionBeforeLaunch) >= 1)
+            {
+                this.gameObject.GetComponent<BoxCollider>().isTrigger = false;
+            }
+        }
+
+        if (isSpinning)
+        {
+            transform.Rotate(Vector3.forward * rotationSpeed * rotationDirection * Time.deltaTime);
+        }
     }
     private void LateUpdate()
     {
@@ -94,21 +140,33 @@ public class ParentLog : MonoBehaviour
         bool goodSideHit = false;
         if (!firstCollisionDetected)
         {
-            firstCollisionDetected = true;
-
+            if(gameObject.GetComponentInParent<TreeManager>().gameManagerRef.gameIsStarted == true) { 
+                firstCollisionDetected = true;
+            }
+          //  if(GameManagerWoodCutting.gameCanStart)
             if(sideWhoGotHit == activeSide)
             {
                 ScreenUILogSystem.Instance.LogMessageToTreeUI(sideWhoGotHit.ToString() + " : Good");
                 hitDirection = DirectionOfHit;
                 goodSideHit = true;
+                controlerToSendFeedBack.SendFeedback(HapticInteractable.HapticType.GoodSide);
+                gameObject.GetComponentInParent<PlaySoundsFromList>().RandomClipFromSpecificList(0);
             }
             else
             {
                 ScreenUILogSystem.Instance.LogMessageToTreeUI(sideWhoGotHit.ToString() + " : Wrong");
                 goodSideHit = false;
+                controlerToSendFeedBack.SendFeedback(HapticInteractable.HapticType.WrongSide);
+                gameObject.GetComponentInParent<PlaySoundsFromList>().RandomClipFromSpecificList(1);
             }
+            
             gameObject.GetComponentInParent<TreeManager>().ReplaceBottomChild(goodSideHit);
         }
+    }
+
+    public void SaveObjectToSendHapticTo(HapticInteractable hapticReference)
+    {
+        controlerToSendFeedBack = hapticReference;
     }
 
 
@@ -166,10 +224,12 @@ public class ParentLog : MonoBehaviour
             Vector3 ImpulsDirection = new Vector3(6, 0, 0);
 
             // Change the direction of the impuls depending on the type of log that was hit.
-            if (activeSide == ChildLog.ActiveChildSide.Left)
+            if (activeSide == ChildLog.ActiveChildSide.Right)
             {
                 ImpulsDirection *= -1;
             }
+            positionBeforeLaunch = this.transform.position;
+            isLaunched = true;
             this.gameObject.GetComponent<Rigidbody>().AddForce(ImpulsDirection, ForceMode.Impulse);
 
             //We want to destroy the cube
@@ -179,15 +239,30 @@ public class ParentLog : MonoBehaviour
         }
         else //IF the log is hit on the wrong side
         {
-
-            LeanTween.scale(this.gameObject, new Vector3(0, 0, 0), 0.25f);
-            LeanTween.moveLocalY(this.gameObject, this.gameObject.transform.position.y - 1, 0.25f);
-            StartCoroutine(TotalDestruction(0.75f));
+            //need to check if the current life is 1 if yes then do not start total destruction
+            if(StatTraking.current.GetLifeRemaining() != 1) {
+                LeanTween.scale(this.gameObject, new Vector3(0, 0, 0), 0.25f);
+                LeanTween.moveLocalY(this.gameObject, this.gameObject.transform.position.y - 1, 0.25f);
+                StartCoroutine(TotalDestruction(0.75f));
+                Debug.Log(StatTraking.current.GetLifeRemaining());
+            }
             StatTraking.current.IncreasBadLogHit();
             StatTraking.current.RemoveLife();
         }
         GameEvents.current.LogIsRemoved();
 
+    }
+
+    public void RemoveObjectWhenGameOver()
+    {
+        isSpinning = true;
+        rotationDirection = Random.Range(0, 2) * 2 - 1;
+        LeanTween.scale(this.gameObject, new Vector3(0, 0, 0), 1.5f);
+        /*if (this.gameObject != null)
+        {
+        }*/
+        StartCoroutine(TotalDestruction(2.0f));
+        
     }
 
     /// <summary>
@@ -237,10 +312,15 @@ public class ParentLog : MonoBehaviour
         //SetUpShader for active log
     }
 
+    
     public IEnumerator TotalDestruction(float time)
     {
         yield return new WaitForSeconds(time);
-        Destroy(this.gameObject);
+        if(this.gameObject != null)
+        {
+
+            Destroy(this.gameObject);
+        }
     }
 
 
