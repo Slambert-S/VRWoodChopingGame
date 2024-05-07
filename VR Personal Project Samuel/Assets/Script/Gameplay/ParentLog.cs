@@ -14,6 +14,7 @@ public class ParentLog : MonoBehaviour
     private Vector3 hitDirection;
     [SerializeField]
     private bool isActiveBottomLog = false;
+    private HapticInteractable controlerToSendFeedBack;
 
     // Section used to handle mouvement and destruction
     [SerializeField]
@@ -49,11 +50,25 @@ public class ParentLog : MonoBehaviour
     }
     void OnEnable()
     {
-        GameEvents.current.onGameOver += RemoveObjectWhenGameOver;
+        if(GameEvents.current == null)
+        {
+            Debug.LogWarning("GameEvent is not yet created");
+        }
+        else
+        {
+            GameEvents.current.onGameOver += RemoveObjectWhenGameOver;
+        }
     }
     void OnDisable()
     {
-        GameEvents.current.onGameOver -= RemoveObjectWhenGameOver;
+        if (GameEvents.current == null)
+        {
+            Debug.LogWarning("GameEvent is not yet created");
+        }
+        else
+        {
+            GameEvents.current.onGameOver -= RemoveObjectWhenGameOver;
+        }
     }
 
     // Update is called once per frame
@@ -125,21 +140,33 @@ public class ParentLog : MonoBehaviour
         bool goodSideHit = false;
         if (!firstCollisionDetected)
         {
-            firstCollisionDetected = true;
-
+            if(gameObject.GetComponentInParent<TreeManager>().gameManagerRef.gameIsStarted == true) { 
+                firstCollisionDetected = true;
+            }
+          //  if(GameManagerWoodCutting.gameCanStart)
             if(sideWhoGotHit == activeSide)
             {
                 ScreenUILogSystem.Instance.LogMessageToTreeUI(sideWhoGotHit.ToString() + " : Good");
                 hitDirection = DirectionOfHit;
                 goodSideHit = true;
+                controlerToSendFeedBack.SendFeedback(HapticInteractable.HapticType.GoodSide);
+                gameObject.GetComponentInParent<PlaySoundsFromList>().RandomClipFromSpecificList(0);
             }
             else
             {
                 ScreenUILogSystem.Instance.LogMessageToTreeUI(sideWhoGotHit.ToString() + " : Wrong");
                 goodSideHit = false;
+                controlerToSendFeedBack.SendFeedback(HapticInteractable.HapticType.WrongSide);
+                gameObject.GetComponentInParent<PlaySoundsFromList>().RandomClipFromSpecificList(1);
             }
+            
             gameObject.GetComponentInParent<TreeManager>().ReplaceBottomChild(goodSideHit);
         }
+    }
+
+    public void SaveObjectToSendHapticTo(HapticInteractable hapticReference)
+    {
+        controlerToSendFeedBack = hapticReference;
     }
 
 

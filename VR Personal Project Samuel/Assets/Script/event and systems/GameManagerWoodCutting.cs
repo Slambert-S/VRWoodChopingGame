@@ -10,10 +10,35 @@ public class GameManagerWoodCutting : MonoBehaviour
 
     public void Start()
     {
-        GameEvents.current.onGameStart += SetGameToActive;
-        GameEvents.current.onGameOver += GameOver;
-        GameEvents.onGameReset += GameReset;
+       
 
+    }
+
+    private void OnEnable()
+    {
+        if (GameEvents.current == null)
+        {
+            Debug.LogWarning("GameEvent is not yet created");
+        }
+        else
+        {
+            GameEvents.current.onGameStart += SetGameToActive;
+            GameEvents.current.onGameOver += GameOver;
+            GameEvents.onGameReset += GameReset;
+        }
+    }
+    private void OnDisable()
+    {
+        if (GameEvents.current == null)
+        {
+            Debug.LogWarning("GameEvent is not yet created");
+        }
+        else
+        {
+            GameEvents.current.onGameStart -= SetGameToActive;
+            GameEvents.current.onGameOver -= GameOver;
+            GameEvents.onGameReset -= GameReset;
+        }
     }
 
     public void SetGameToPaused()

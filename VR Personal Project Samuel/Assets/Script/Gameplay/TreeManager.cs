@@ -94,11 +94,19 @@ public class TreeManager : MonoBehaviour
             return;
         }
 
-        if (gameManagerRef.gameIsStarted == false )
+        if(gameManagerRef.gameIsStarted == false && goodSide == false)
+        {
+            Debug.Log("Can start the game because you hit the wrong side");
+            SetCanInteractWithTree(false);
+            return;
+        }
+
+        if (gameManagerRef.gameIsStarted == false && goodSide == true )
         {
             GameEvents.current.GameIsStarted();
             //gameIsStarted = true;
         }
+        
         // [Objective] : Prevent te player to keep interacting with the tree.
         //target the AXE
         SetCanInteractWithTree(false);

@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+using UnityEngine.XR.Interaction.Toolkit;
 /// <summary>
 /// Play a simple sounds using Play one shot with volume, and pitch
 /// </summary>
@@ -39,4 +39,21 @@ public class PlayQuickSound : MonoBehaviour
         AudioSource audioSource = GetComponent<AudioSource>();
         audioSource.playOnAwake = false;
     }
+
+    public void TestingSomething(UnityEngine.XR.Interaction.Toolkit.BaseInteractionEventArgs arg)
+    {
+        Debug.Log(arg.interactorObject.transform.gameObject.name);
+    }
+
+    public void PlaySoundWhenPlayerGrab(UnityEngine.XR.Interaction.Toolkit.BaseInteractionEventArgs arg)
+    {
+        Debug.Log(arg.interactorObject.transform.gameObject.name);
+        if (arg.interactorObject.transform.CompareTag("Player"))
+        {
+            Play();
+        }
+    }
+
+
+
 }

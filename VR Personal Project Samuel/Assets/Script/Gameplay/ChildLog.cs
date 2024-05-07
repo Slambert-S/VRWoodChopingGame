@@ -22,17 +22,19 @@ public class ChildLog : MonoBehaviour
             ScreenUILogSystem.Instance.LogMessageToTreeUI(this.gameObject.name + " of : " + this.gameObject.transform.parent.name + " Was hit; in");
             //destination - current
             Vector3 dirrectionOfHIt = (this.transform.position - other.gameObject.transform.position).normalized;
-            TellParentHitWasDetected(dirrectionOfHIt);
+            TellParentHitWasDetected(dirrectionOfHIt, other.gameObject);
+            //other.gameObject.GetComponentInParent<HapticInteractable>().SendFeedback();
         }
 
         
         /// if yes -> call function in the parent script
     }
 
-    private void TellParentHitWasDetected(Vector3 directionOfhit)
+    private void TellParentHitWasDetected(Vector3 directionOfhit, GameObject collisionRef)
     {
         if (parentRef != null)
-        { 
+        {
+            parentRef.SaveObjectToSendHapticTo(collisionRef.GetComponentInParent<HapticInteractable>());
             parentRef.LearnWhatChildWasHit(childSide, directionOfhit);
         }
     }
