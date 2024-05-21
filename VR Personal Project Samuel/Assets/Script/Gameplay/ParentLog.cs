@@ -124,7 +124,7 @@ public class ParentLog : MonoBehaviour
     /// </summary>
     /// <param name="sideWhoGotHit"></param>
     /// <param name="DirectionOfHit"></param>
-    public void LearnWhatChildWasHit(ChildLog.ActiveChildSide sideWhoGotHit, Vector3 DirectionOfHit)
+    public void LearnWhatChildWasHit(ChildLog.ActiveChildSide sideWhoGotHit, Vector3 DirectionOfHit , GameObject ColiderObject)
     {
         // Check To prevent colliding with log that are not the active one
         if(isActiveBottomLog == false)
@@ -151,6 +151,9 @@ public class ParentLog : MonoBehaviour
                 goodSideHit = true;
                 controlerToSendFeedBack.SendFeedback(HapticInteractable.HapticType.GoodSide);
                 gameObject.GetComponentInParent<PlaySoundsFromList>().RandomClipFromSpecificList(0);
+
+                //Testing things ouf for the cutting
+                ColiderObject.transform.parent.GetComponentInChildren<SliceObjectTesting>().ManualRayCastCall();
             }
             else
             {
@@ -230,7 +233,8 @@ public class ParentLog : MonoBehaviour
             }
             positionBeforeLaunch = this.transform.position;
             isLaunched = true;
-            this.gameObject.GetComponent<Rigidbody>().AddForce(ImpulsDirection, ForceMode.Impulse);
+            // this.gameObject.GetComponent<Rigidbody>().AddForce(ImpulsDirection, ForceMode.Impulse);
+            this.gameObject.GetComponent<MeshRenderer>().enabled = false;
 
             //We want to destroy the cube
             StartCoroutine(TotalDestruction(0.75f));
