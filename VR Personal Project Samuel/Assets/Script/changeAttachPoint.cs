@@ -9,7 +9,7 @@ using UnityEngine.XR.Interaction.Toolkit.Utilities.Pooling;
 
 public class changeAttachPoint : MonoBehaviour
 {
-    public UnityEngine.XR.Interaction.Toolkit.XRGrabInteractable reference;
+    public UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable reference;
     public Transform originalAttachPoint;
     public Transform SecondAttachPoint;
     public bool toogleTragink = true;

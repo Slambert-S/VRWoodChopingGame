@@ -12,7 +12,7 @@ public class Haptic
 
     public void TriggerHaptic(BaseInteractionEventArgs EventArg)
     {
-        if (EventArg.interactorObject is XRBaseInputInteractor controllerInteractor)
+        if (EventArg.interactorObject is UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInputInteractor controllerInteractor)
         {
             TriggerHaptic(controllerInteractor.xrController);
         }
@@ -32,11 +32,11 @@ public class HapticInteractable : MonoBehaviour
 {
     public Haptic hapticOnActivated;
     public Haptic hapticSelectEntered;
-    private XRBaseInputInteractor activatedController;
+    private UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInputInteractor activatedController;
     // Start is called before the first frame update
     void Start()
     {
-        XRBaseInteractable interactable = GetComponent<XRBaseInteractable>();
+        UnityEngine.XR.Interaction.Toolkit.Interactables.XRBaseInteractable interactable = GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRBaseInteractable>();
         interactable.activated.AddListener(SendFeedback);
         //interactable.selectEntered.AddListener(hapticSelectEntered.TriggerHaptic);
         interactable.selectEntered.AddListener(SaveController);
@@ -67,7 +67,7 @@ public class HapticInteractable : MonoBehaviour
     */
     public void SaveController(BaseInteractionEventArgs EventArg)
     {
-        if (EventArg.interactorObject is XRBaseInputInteractor controllerInteractor)
+        if (EventArg.interactorObject is UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInputInteractor controllerInteractor)
         {
             activatedController = controllerInteractor;
         }
