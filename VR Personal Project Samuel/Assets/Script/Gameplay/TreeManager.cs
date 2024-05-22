@@ -134,7 +134,7 @@ public class TreeManager : MonoBehaviour
             {
                 bottomLog = nextBottomLog;
                 // [Objective] : move the tree down
-                LeanTween.move(bottomLog, originalBottomLogPositionRef, 0.75f).setOnComplete(ToExecuteAfterFinishingTweening);
+                LeanTween.move(bottomLog, originalBottomLogPositionRef, 0.25f).setOnComplete(ToExecuteAfterFinishingTweening);
                 //CreateNextTopChild();
 
             }
