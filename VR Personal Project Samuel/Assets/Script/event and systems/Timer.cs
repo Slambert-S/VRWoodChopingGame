@@ -6,7 +6,7 @@ public class Timer : MonoBehaviour
 {
     // Start is called before the first frame update
     public bool isTimerOn = false;
-    public float intervalTime = 5.0f;
+    public int intervalTime = 5;
     public float targetTime = 0f;
     void Start()
     {
@@ -49,7 +49,8 @@ public class Timer : MonoBehaviour
         if (isTimerOn)
         {
             targetTime -= Time.deltaTime;
-            float result = (Mathf.Round(targetTime * 10)/10);
+            //float result = (Mathf.Round(targetTime * 10));
+            int result = (Mathf.CeilToInt(targetTime ));
             GameUIManager.current.UpdateCountdownTimer(result);
             if (targetTime <= 0.0f)
             {

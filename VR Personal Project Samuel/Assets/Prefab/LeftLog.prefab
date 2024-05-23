@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3781929215928478456}
   - component: {fileID: 5793772010111338049}
   - component: {fileID: 6993677932117076927}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LeftLog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -65,11 +65,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeSide: 1
-  isActiveBottomLog: 1
+  isActiveBottomLog: 0
   topNeighbourAnchor: {fileID: 0}
   bottomNeighbourAnchor: {fileID: 0}
   objectTopAnchorRef: {fileID: 0}
   objectBottomAnchorRef: {fileID: 0}
+  isSpinning: 0
+  rotationSpeed: 500
+  rotationDirection: 1
   yPosOfset: 0
 --- !u!33 &5793772010111338049
 MeshFilter:
