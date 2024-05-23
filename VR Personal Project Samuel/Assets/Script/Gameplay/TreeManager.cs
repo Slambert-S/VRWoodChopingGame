@@ -17,7 +17,7 @@ public class TreeManager : MonoBehaviour
     public int wantedNumberLog =4;
     
     public bool canInteractWithTree = true;
-    private bool gameIsStarted = false;
+   // private bool gameIsStarted = false;
 
     [Header("Debug control")]
     public bool startTreeEmpty = false;
@@ -132,6 +132,8 @@ public class TreeManager : MonoBehaviour
             }
             else
             {
+                //This part is simply to move the stack of log down.
+
                 bottomLog = nextBottomLog;
                 // [Objective] : move the tree down
                 LeanTween.move(bottomLog, originalBottomLogPositionRef, 0.25f).setOnComplete(ToExecuteAfterFinishingTweening);

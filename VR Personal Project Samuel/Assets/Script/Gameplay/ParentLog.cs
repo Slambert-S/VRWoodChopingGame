@@ -161,6 +161,13 @@ public class ParentLog : MonoBehaviour
                 goodSideHit = false;
                 controlerToSendFeedBack.SendFeedback(HapticInteractable.HapticType.WrongSide);
                 gameObject.GetComponentInParent<PlaySoundsFromList>().RandomClipFromSpecificList(1);
+                //change level of axe crack
+                if (gameObject.GetComponentInParent<TreeManager>().gameManagerRef.gameIsStarted)
+                {
+                    ColiderObject.transform.parent.GetComponentInChildren<ChangeAxeCrackVisual>().IncreaseCrackVisual();
+
+                }
+                
             }
             
             gameObject.GetComponentInParent<TreeManager>().ReplaceBottomChild(goodSideHit);

@@ -12,9 +12,12 @@ public class StatTraking : MonoBehaviour
     private int badLogHitCount;
     private int livesRemaining;
 
-    private int nbStartingLife = 3;
+    [SerializeField]
+    private int nbStartingLife = 3;      
     private void Awake()
     {
+        //nbStartingLife = 3;
+
         if (current != null && current != this)
         {
             Destroy(this);
@@ -78,5 +81,11 @@ public class StatTraking : MonoBehaviour
         GameUIManager.current.UpdateBadHit(badLogHitCount);
         GameUIManager.current.UpdateGoodHit(goodLogHitCount);
         GameUIManager.current.UpdateLive(livesRemaining);
+    }
+
+    public int getNumberOfLifeLost()
+    {
+        int lifeLost = nbStartingLife - livesRemaining;
+        return lifeLost;
     }
 }

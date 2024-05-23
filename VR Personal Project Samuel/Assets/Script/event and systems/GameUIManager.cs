@@ -25,7 +25,7 @@ public class GameUIManager : MonoBehaviour
         GameEvents.current.onGameOver += GameOver;
     }
 
-    public void UpdateCountdownTimer(float time)
+    public void UpdateCountdownTimer(int time)
     {
         string text = "Time : " + time;
         TimerUIRef.text = text;
