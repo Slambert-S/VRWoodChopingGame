@@ -15,7 +15,10 @@ public class ChangeAxeCrackVisual : MonoBehaviour
     {
         objectRenderer = GetComponent<Renderer>();
         Debug.Log(crackValue.Capacity);
-        originalColor = objectRenderer.material.color;
+      
+        originalColor = objectRenderer.material.GetColor("_CrackColor");
+        
+        
     }
 
     public void OnEnable()

@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 
 public class TreeManager : MonoBehaviour
 {
@@ -53,13 +50,13 @@ public class TreeManager : MonoBehaviour
         }*/
 
         GameEvents.current.onTimerOver += TimeOverAdapter;
-        GameEvents.onGameReset += setUpNewTree;
+        GameEvents.onGameReset += ResetGame;
     }
 
     public void OnDisable()
     {
         GameEvents.current.onTimerOver -= TimeOverAdapter;
-        GameEvents.onGameReset -= setUpNewTree;
+        GameEvents.onGameReset -= ResetGame;
     }
 
     private void SetUpAllChild()
@@ -129,6 +126,8 @@ public class TreeManager : MonoBehaviour
             if(goodSide == false  && StatTraking.current.GetLifeRemaining() == 0)
             {
                 //we filter the hit that would lead to a game over
+                topLog = null;
+
             }
             else
             {
@@ -191,6 +190,15 @@ public class TreeManager : MonoBehaviour
         }
     }
 
+
+    private void ResetGame()
+    {
+        foreach (Transform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
+        setUpNewTree();
+    }
     //Set up new tree objective
     /*
      * Creat a new log in the bottom possition.
