@@ -35,7 +35,7 @@ public class ChildLog : MonoBehaviour
         if (parentRef != null)
         {
             parentRef.SaveObjectToSendHapticTo(collisionRef.GetComponentInParent<HapticInteractable>());
-            parentRef.LearnWhatChildWasHit(childSide, directionOfhit,collisionRef);
+            parentRef.LearnWhatChildWasHit(childSide, directionOfhit,collisionRef.transform.parent.gameObject);
         }
     }
     public enum ActiveChildSide { None,Left,Right};

@@ -1,3 +1,5 @@
+using System.Collections;
+using System;
 using UnityEngine;
 
 public class TreeManager : MonoBehaviour
@@ -14,6 +16,7 @@ public class TreeManager : MonoBehaviour
     public int wantedNumberLog =4;
     
     public bool canInteractWithTree = true;
+    private GameObject lastInteractingObject;
    // private bool gameIsStarted = false;
 
     [Header("Debug control")]
@@ -82,31 +85,41 @@ public class TreeManager : MonoBehaviour
         }
     }
 
-    public void ReplaceBottomChild(bool goodSide)
+    public void ChildWasHitManager(bool goodSide, GameObject ColiderObject)
     {
+        lastInteractingObject = ColiderObject;
+
         //prevent the game from starting if required.
-        if(gameManagerRef.gameCanStart == false)
+        if (gameManagerRef.gameCanStart == false)
         {
             Debug.Log("Can start the game yet");
             return;
         }
 
-        if(gameManagerRef.gameIsStarted == false && goodSide == false)
+        if (gameManagerRef.gameIsStarted == false && goodSide == false)
         {
             Debug.Log("Can start the game because you hit the wrong side");
             SetCanInteractWithTree(false);
             return;
         }
 
-        if (gameManagerRef.gameIsStarted == false && goodSide == true )
+        if (gameManagerRef.gameIsStarted == false && goodSide == true)
         {
             GameEvents.current.GameIsStarted();
             //gameIsStarted = true;
         }
         
+        ReplaceBottomChild(goodSide);
+    }
+
+    private void ReplaceBottomChild(bool goodSide)
+    {
+       
+        
         // [Objective] : Prevent te player to keep interacting with the tree.
         //target the AXE
         SetCanInteractWithTree(false);
+        lastInteractingObject.GetComponentInChildren<AxeOutlineManager>().setDeactivatedOutline();
 
         // get the bottom log section and get the parent log script
         ParentLog currentBottomLogRef = bottomLog.GetComponent<ParentLog>();
@@ -115,7 +128,17 @@ public class TreeManager : MonoBehaviour
         {
             ScreenUILogSystem.Instance.LogMessageToTreeUI("In replace Bottom Child");
             // [Objective] : Get a reference to the log that will be the newxt a the bottom.
-            GameObject nextBottomLog = currentBottomLogRef.topNeighbourAnchor.transform.parent.gameObject;
+            GameObject nextBottomLog = null;
+            try
+            {
+                // your code segment which might throw an exception
+                nextBottomLog = currentBottomLogRef.topNeighbourAnchor.transform.parent.gameObject;
+            }
+            catch (Exception ex)
+            {
+                Debug.LogException(ex, this);
+            }
+            
             nextBottomLog.GetComponent<ParentLog>().bottomNeighbourAnchor = null;
 
             // [Objective] : Removing the log that was hit.
@@ -150,6 +173,7 @@ public class TreeManager : MonoBehaviour
 
     private void TimeOverAdapter()
     {
+        lastInteractingObject.GetComponentInChildren<ChangeAxeCrackVisual>().IncreaseCrackVisual();
         ReplaceBottomChild(false);
     }
 
@@ -163,9 +187,9 @@ public class TreeManager : MonoBehaviour
     /// </summary>
     public void CreateNextTopChild()
     {
-        bool canCreateObject = true;
+       // bool canCreateObject = true;
         //To-DO add a usefull check to know if you can still create a new log
-        if (canCreateObject)
+        if (gameManagerRef.canCrateNewLog)
         {
             // [Objective] : Creating a new Log object and changing its name.
             string newName = "Log number " + createdChildNumber;
@@ -188,6 +212,10 @@ public class TreeManager : MonoBehaviour
 
 
         }
+        else
+        {
+            VRDebugConsol.Instance.LogMessageToConsol("Can't create new log");
+        }
     }
 
 
@@ -197,18 +225,27 @@ public class TreeManager : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
+        StartCoroutine(WaitForTreeCreationToBeEnabled());
+    }
+    public IEnumerator WaitForTreeCreationToBeEnabled()
+    { 
+        if(gameManagerRef.canCrateNewLog == false)
+        {
+            yield return null;
+
+        }
         setUpNewTree();
     }
-    //Set up new tree objective
-    /*
-     * Creat a new log in the bottom possition.
-     * Set the new log as top and bottom of the tree stack.
-     * Creat the next top child X(right now 4) time 
-     * 
-     * 
-     * */
+        //Set up new tree objective
+        /*
+         * Creat a new log in the bottom possition.
+         * Set the new log as top and bottom of the tree stack.
+         * Creat the next top child X(right now 4) time 
+         * 
+         * 
+         * */
 
-    public void setUpNewTree()
+        public void setUpNewTree()
     {
         Debug.Log("in SetUpNewTree");
         createdChildNumber = 0;
@@ -233,6 +270,7 @@ public class TreeManager : MonoBehaviour
     public void SetCanInteractWithTree(bool newValue)
     {
         canInteractWithTree = newValue;
+        
     }
     /// <summary>
     /// Create a new random Log GameObject and handle general set up of the object.
@@ -240,7 +278,7 @@ public class TreeManager : MonoBehaviour
     /// <returns> Return a reference to the new Log created</returns>
     private GameObject SelectAndInstatiateNewLog()
     {
-        int logIntToCreate = Random.Range(1, 3);
+        int logIntToCreate = UnityEngine.Random.Range(1, 3);
         ChildLog.ActiveChildSide logTypeToCreate = (ChildLog.ActiveChildSide)logIntToCreate;
         GameObject newLog = null;
         switch (logTypeToCreate)
@@ -271,6 +309,7 @@ public class TreeManager : MonoBehaviour
                 newLog.transform.position = originalBottomLogPositionRef.position;
             }
             newLog.transform.parent = this.gameObject.transform;
+
             ParentLog reference = null;
             try
             {

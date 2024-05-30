@@ -51,7 +51,7 @@ public class Timer : MonoBehaviour
             targetTime -= Time.deltaTime;
             //float result = (Mathf.Round(targetTime * 10));
             int result = (Mathf.CeilToInt(targetTime ));
-            GameUIManager.current.UpdateCountdownTimer(result);
+           // GameUIManager.current.UpdateCountdownTimer(result);
             if (targetTime <= 0.0f)
             {
                 timerEnded();
@@ -81,7 +81,7 @@ public class Timer : MonoBehaviour
     {
         // isTimerOn = false;
         targetTime = intervalTime;
-        GameUIManager.current.UpdateCountdownTimer(intervalTime);
+        ///GameUIManager.current.UpdateCountdownTimer(intervalTime);
         //isTimerOn = true;
     }
 

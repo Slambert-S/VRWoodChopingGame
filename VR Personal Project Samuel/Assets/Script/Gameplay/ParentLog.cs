@@ -153,7 +153,7 @@ public class ParentLog : MonoBehaviour
                 gameObject.GetComponentInParent<PlaySoundsFromList>().RandomClipFromSpecificList(0);
 
                 //Testing things ouf for the cutting
-                ColiderObject.transform.parent.GetComponentInChildren<SliceObjectTesting>().ManualRayCastCall();
+                ColiderObject.GetComponentInChildren<SliceObjectTesting>().ManualRayCastCall();
             }
             else
             {
@@ -164,13 +164,14 @@ public class ParentLog : MonoBehaviour
                 //change level of axe crack
                 if (gameObject.GetComponentInParent<TreeManager>().gameManagerRef.gameIsStarted)
                 {
-                    ColiderObject.transform.parent.GetComponentInChildren<ChangeAxeCrackVisual>().IncreaseCrackVisual();
+                    ColiderObject.GetComponentInChildren<ChangeAxeCrackVisual>().IncreaseCrackVisual();
+                    
 
                 }
                 
             }
             
-            gameObject.GetComponentInParent<TreeManager>().ReplaceBottomChild(goodSideHit);
+            gameObject.GetComponentInParent<TreeManager>().ChildWasHitManager(goodSideHit, ColiderObject);
         }
     }
 
@@ -269,9 +270,11 @@ public class ParentLog : MonoBehaviour
         isSpinning = true;
         rotationDirection = Random.Range(0, 2) * 2 - 1;
         LeanTween.scale(this.gameObject, new Vector3(0, 0, 0), 1.5f);
-        /*if (this.gameObject != null)
-        {
-        }*/
+        /*
+         * if (this.gameObject != null)
+            {
+            }
+        */
         StartCoroutine(TotalDestruction(2.0f));
         
     }

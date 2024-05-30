@@ -84,7 +84,7 @@ public class SliceObjectTesting : MonoBehaviour
       
         slicedObject.transform.localPosition = parentRef.transform.TransformPoint(parentRef.transform.localPosition);
 
-        Debug.Log(slicedObject.transform.position);
+        //Debug.Log(slicedObject.transform.position);
         collider.convex = true;
         
         rb.AddForce(normal * 50);

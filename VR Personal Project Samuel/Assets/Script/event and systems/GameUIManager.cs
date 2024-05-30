@@ -17,7 +17,7 @@ public class GameUIManager : MonoBehaviour
     private void Awake()
     {
         current = this;
-        UpdateLive(StatTraking.current.GetLifeRemaining());
+        //UpdateLive(StatTraking.current.GetLifeRemaining());
     }
 
     private void Start()
@@ -25,30 +25,37 @@ public class GameUIManager : MonoBehaviour
         GameEvents.current.onGameOver += GameOver;
     }
 
+   /* 
     public void UpdateCountdownTimer(int time)
     {
         string text = "Time : " + time;
         TimerUIRef.text = text;
     }
-
+   */
+   
+    /*
     public void UpdateLive(int value)
     {
         lifeUIRef.text = "Life : " + value; 
     }
+   */
 
+    /*
     public void UpdateGoodHit(int value)
     {
         goodHitUIRef.text = "Good hit : " + value;
     }
-
+    */
+    
+    /*
     public void UpdateBadHit(int value)
     {
         BadHitUIRef.text = "Bad hit : " + value;
-    }
+    }*/
 
     public void RestartGame()
     {
-        DisplayRestartButton(false);
+        //DisplayRestartButton(false);
 
         GameEvents.current.GameReset();
         DisplayRestartButton(false);
@@ -66,10 +73,12 @@ public class GameUIManager : MonoBehaviour
         if(value == true)
         {
             restartButtonRef.gameObject.SetActive(true);
+            this.GetComponent<Canvas>().enabled = true;
         }
         else
         {
             restartButtonRef.gameObject.SetActive(false);
+            this.GetComponent<Canvas>().enabled = false;
         }
     }
 

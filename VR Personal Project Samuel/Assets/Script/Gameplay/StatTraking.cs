@@ -11,6 +11,9 @@ public class StatTraking : MonoBehaviour
     private int goodLogHitCount;
     private int badLogHitCount;
     private int livesRemaining;
+    
+    [SerializeField]
+    private GameManagerWoodCutting gameManagerRef;
 
     [SerializeField]
     private int nbStartingLife = 3;      
@@ -40,7 +43,7 @@ public class StatTraking : MonoBehaviour
     public void RemoveLife()
     {
         livesRemaining -= 1;
-        GameUIManager.current.UpdateLive(livesRemaining);
+       // GameUIManager.current.UpdateLive(livesRemaining);
         if(livesRemaining == 0)
         {
             GameEvents.current.GameOver();
@@ -54,9 +57,10 @@ public class StatTraking : MonoBehaviour
     public void IncreasGoodLogHit()
     {
         goodLogHitCount++;
-        GameUIManager.current.UpdateGoodHit(goodLogHitCount);
+        gameManagerRef.UpdateGameState(GetTotalLogHit());
+        //GameUIManager.current.UpdateGoodHit(goodLogHitCount);
     }
-
+  
     public int GetGoodLogHitCount()
     {
         return goodLogHitCount;
@@ -65,7 +69,8 @@ public class StatTraking : MonoBehaviour
     public void IncreasBadLogHit()
     {
         badLogHitCount++;
-        GameUIManager.current.UpdateBadHit(badLogHitCount);
+        gameManagerRef.UpdateGameState(GetTotalLogHit());
+        //  GameUIManager.current.UpdateBadHit(badLogHitCount);
     }
 
     public int GetBadLogHitCount()
@@ -73,14 +78,21 @@ public class StatTraking : MonoBehaviour
         return badLogHitCount;
     }
 
+    public int GetTotalLogHit()
+    {
+        return goodLogHitCount + badLogHitCount;
+    }
+
+
     private void ResetStat()
     {
         goodLogHitCount = 0;
         badLogHitCount = 0;
         livesRemaining = nbStartingLife;
-        GameUIManager.current.UpdateBadHit(badLogHitCount);
-        GameUIManager.current.UpdateGoodHit(goodLogHitCount);
-        GameUIManager.current.UpdateLive(livesRemaining);
+
+       // GameUIManager.current.UpdateBadHit(badLogHitCount);
+       // GameUIManager.current.UpdateGoodHit(goodLogHitCount);
+       // GameUIManager.current.UpdateLive(livesRemaining);
     }
 
     public int getNumberOfLifeLost()

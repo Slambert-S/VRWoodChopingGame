@@ -30,7 +30,7 @@ public class SetInteractionLayer : MonoBehaviour
 
     public void ToggleTargetLayer(bool value)
     {
-        if (value)
+        if (!value)
         {
             SetTargetLayer();
         }
