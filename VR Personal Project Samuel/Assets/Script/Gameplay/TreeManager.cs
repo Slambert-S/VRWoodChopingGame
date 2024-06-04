@@ -87,7 +87,10 @@ public class TreeManager : MonoBehaviour
 
     public void ChildWasHitManager(bool goodSide, GameObject ColiderObject)
     {
-        lastInteractingObject = ColiderObject;
+        if(ColiderObject != null)
+        {
+            lastInteractingObject = ColiderObject;
+        }
 
         //prevent the game from starting if required.
         if (gameManagerRef.gameCanStart == false)
@@ -180,6 +183,8 @@ public class TreeManager : MonoBehaviour
     private void ToExecuteAfterFinishingTweening()
     {
         bottomLog.GetComponent<ParentLog>().SetAsActiveLog();
+        //[To do : call InitialiseLog() ]
+        bottomLog.GetComponent<ParentLog>().InitialiseLog();
         CreateNextTopChild();
     }
     /// <summary>
@@ -245,7 +250,7 @@ public class TreeManager : MonoBehaviour
          * 
          * */
 
-        public void setUpNewTree()
+    public void setUpNewTree()
     {
         Debug.Log("in SetUpNewTree");
         createdChildNumber = 0;
@@ -278,19 +283,44 @@ public class TreeManager : MonoBehaviour
     /// <returns> Return a reference to the new Log created</returns>
     private GameObject SelectAndInstatiateNewLog()
     {
-        int logIntToCreate = UnityEngine.Random.Range(1, 3);
+        int logIntToCreate = 1;
+        switch (gameManagerRef.GetGameLevel())
+        {
+            case GameManagerWoodCutting.gameLevel.start:
+                logIntToCreate = UnityEngine.Random.Range(1, 3);
+                gameManagerRef.IncreaseLevel();
+                break;
+            case GameManagerWoodCutting.gameLevel.one:
+                logIntToCreate = UnityEngine.Random.Range(1, 3);
+                break;
+            case GameManagerWoodCutting.gameLevel.two:
+                logIntToCreate = UnityEngine.Random.Range(0, 3);
+                break;
+            case GameManagerWoodCutting.gameLevel.tree:
+                logIntToCreate = UnityEngine.Random.Range(0, 3);
+                break;
+            default:
+                break;
+        }
+
+        //[To DO : add a check to prefent the first log to be solid]
+
+        //[To Do : add a way to control wich log a created depending on the "Level"]
+
+        //int logIntToCreate = UnityEngine.Random.Range(1, 3);
         ChildLog.ActiveChildSide logTypeToCreate = (ChildLog.ActiveChildSide)logIntToCreate;
         GameObject newLog = null;
         switch (logTypeToCreate)
         {
             case ChildLog.ActiveChildSide.None:
+                newLog = Instantiate(logPrefab[0]);
                 break;
             case ChildLog.ActiveChildSide.Left:
-                newLog = Instantiate(logPrefab[0]);
+                newLog = Instantiate(logPrefab[1]);
                 //return newLog;
                 break;
             case ChildLog.ActiveChildSide.Right:
-                newLog = Instantiate(logPrefab[1]);
+                newLog = Instantiate(logPrefab[2]);
                 
                 //return newLog;
                 break;
@@ -338,4 +368,6 @@ public class TreeManager : MonoBehaviour
         }
 
     }
+
+   
 }

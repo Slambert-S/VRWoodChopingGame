@@ -8,7 +8,11 @@ public class GameManagerWoodCutting : MonoBehaviour
     public bool gameIsStarted = false;
     public bool gameCanStart = true;
     public bool canCrateNewLog = true;
-    
+
+    private gameLevel _gameLevel = gameLevel.one;
+    [SerializeField]
+    private List<int> levelTreshold = new List<int>();
+
     [SerializeField]
     private  const int nbLoogToChopToWIngGame = 15;
     int numberofHitBeforeStopingGeneratingLog = 0;
@@ -46,10 +50,15 @@ public class GameManagerWoodCutting : MonoBehaviour
         }
     }
 
+    public gameLevel GetGameLevel()
+    {
+        return _gameLevel;
+    }
+
 
     public void UpdateGameState(int totalLogHit)
     {
-        VRDebugConsol.Instance.LogMessageToConsol("Reached UpdateGameState");
+        //VRDebugConsol.Instance.LogMessageToConsol("Reached UpdateGameState");
         
         /*
         switch (nbCutLog)
@@ -78,6 +87,33 @@ public class GameManagerWoodCutting : MonoBehaviour
         {
             numberofHitBeforeStopingGeneratingLog = (totalLogHit + StatTraking.current.GetLifeRemaining());
         }
+        
+        //Check if the level need to increase.
+        //(int)_gameLevel) - 1 because we don't take into acount the first hit/level (start) 
+        int levelValue = ((int)_gameLevel) - 1;
+        VRDebugConsol.Instance.LogMessageToConsol("Level value :" + levelValue);
+        VRDebugConsol.Instance.LogMessageToConsol("Level capacity :" + levelTreshold.Capacity);
+        if (levelValue != -1)
+        {
+            if(levelValue < levelTreshold.Capacity)
+            {
+
+                try
+                {
+                    if (StatTraking.current.GetGoodLogHitCount() == levelTreshold[levelValue])
+                    {
+                        IncreaseLevel();
+                    }
+                }
+                catch (System.Exception)
+                {
+
+                    throw;
+                }
+            
+            }
+        }
+        
 
         if(numberofHitBeforeStopingGeneratingLog != 0 && totalLogHit == numberofHitBeforeStopingGeneratingLog)
         {
@@ -139,8 +175,35 @@ public class GameManagerWoodCutting : MonoBehaviour
     {
         SetGameCanStart(true);
         canCrateNewLog = true;
+        _gameLevel = gameLevel.start;
     }
 
-    
+    public void IncreaseLevel()
+    {
+        switch (_gameLevel)
+        {
+            case gameLevel.start:
+                _gameLevel = gameLevel.one;
+                break;
+            case gameLevel.one:
+                _gameLevel = gameLevel.two;
+                break;
+            case gameLevel.two:
+                _gameLevel = gameLevel.tree;
+                break;
+            case gameLevel.tree:
+                break;
+            default:
+                break;
+        }
+    }
+    public enum gameLevel
+    {
+        start,
+        one,
+        two,
+        tree
+
+    }
 
 }

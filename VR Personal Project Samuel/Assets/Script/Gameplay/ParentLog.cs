@@ -5,8 +5,9 @@ using UnityEngine;
 public class ParentLog : MonoBehaviour
 {
     //Section for Value used
-    private Vector3 angleForLeftLog = new Vector3(-90.0f, 0, 180f);
-    private Vector3 angleForRightLog = new Vector3(-90.0f, 0, 0);
+    private Vector3 _angleForLeftLog = new Vector3(-90.0f, 0, 180f);
+    private Vector3 _angleForRightLog = new Vector3(-90.0f, 0, 0);
+    private Vector3 _angleForSolidLog = new Vector3(-90.0f, -90.0f, 0);
     /// Section used for detecting a colisions
     [SerializeField]
     private ChildLog.ActiveChildSide activeSide;
@@ -26,16 +27,18 @@ public class ParentLog : MonoBehaviour
     private Transform objectTopAnchorRef;
     [SerializeField]
     private Transform objectBottomAnchorRef;
+   /* 
     private bool isLaunched =false;
     private Vector3 positionBeforeLaunch;
+   */
     [SerializeField]
     private bool isSpinning = false;
     public float rotationSpeed = 500f;
     [SerializeField]
     private int rotationDirection = 1;
 
-
-
+    [SerializeField]
+    private bool _useCustomRemoveAnimation = false;
 
     [SerializeField]
     private float yPosOfset = 0;
@@ -75,14 +78,14 @@ public class ParentLog : MonoBehaviour
     void Update()
     {
         // LinkNeighbour();
-        if (isLaunched)
+      /*  if (isLaunched)
         {
           //  Debug.Log(Vector3.Distance(this.transform.position, positionBeforeLaunch));
             if(Vector3.Distance(this.transform.position, positionBeforeLaunch) >= 1)
             {
                 this.gameObject.GetComponent<BoxCollider>().isTrigger = false;
             }
-        }
+        }*/
 
         if (isSpinning)
         {
@@ -229,6 +232,7 @@ public class ParentLog : MonoBehaviour
     {
         if(goodSide) //IF he log is hit on the good side
         {
+            /*
             //Objective : add component required for physics and push the log in a specific direction
             this.gameObject.AddComponent<Rigidbody>();
             this.gameObject.GetComponent<Rigidbody>().useGravity = true;
@@ -240,9 +244,17 @@ public class ParentLog : MonoBehaviour
                 ImpulsDirection *= -1;
             }
             positionBeforeLaunch = this.transform.position;
-            isLaunched = true;
+            isLaunched = true;*/
             // this.gameObject.GetComponent<Rigidbody>().AddForce(ImpulsDirection, ForceMode.Impulse);
-            this.gameObject.GetComponent<MeshRenderer>().enabled = false;
+            if (_useCustomRemoveAnimation)
+            {
+                StartCustomRemoveAnimation();
+            }
+            else
+            {
+                this.gameObject.GetComponent<MeshRenderer>().enabled = false;
+
+            }
 
             //We want to destroy the cube
             StartCoroutine(TotalDestruction(0.75f));
@@ -264,6 +276,12 @@ public class ParentLog : MonoBehaviour
         GameEvents.current.LogIsRemoved();
 
     }
+
+    public virtual void StartCustomRemoveAnimation()
+    {
+
+    }
+
 
     public void RemoveObjectWhenGameOver()
     {
@@ -289,16 +307,23 @@ public class ParentLog : MonoBehaviour
         switch (activeSide)     
         {
             case ChildLog.ActiveChildSide.None:
+                this.gameObject.transform.localEulerAngles = _angleForSolidLog;
                 break;
             case ChildLog.ActiveChildSide.Left:
-                this.gameObject.transform.localEulerAngles = angleForLeftLog;
+                this.gameObject.transform.localEulerAngles = _angleForLeftLog;
                 break;
             case ChildLog.ActiveChildSide.Right:
-                this.gameObject.transform.localEulerAngles = angleForRightLog;
+                this.gameObject.transform.localEulerAngles = _angleForRightLog;
                 break;
             default:
                 break;
         }
+        
+    }
+
+    public virtual void InitialiseLog()
+    {
+
     }
 
         /// <summary>
