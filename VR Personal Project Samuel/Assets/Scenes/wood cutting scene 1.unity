@@ -2551,6 +2551,7 @@ MonoBehaviour:
   bottomLog: {fileID: 0}
   topLog: {fileID: 0}
   originalBottomLogPositionRef: {fileID: 1149212976}
+  _playerRef: {fileID: 920921510}
   createdChildNumber: 0
   logPrefab:
   - {fileID: 4587849671584529141, guid: 00435bc1b8888014b8bfc00b91ce2cfe, type: 3}
@@ -4062,6 +4063,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 972734769}
     m_Modifications:
+    - target: {fileID: 1734748484036948287, guid: 2a70b8b26330c5347996ee400b139e98,
+        type: 3}
+      propertyPath: m_Teleporting.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1385507841}
+    - target: {fileID: 1734748484036948287, guid: 2a70b8b26330c5347996ee400b139e98,
+        type: 3}
+      propertyPath: m_Teleporting.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: DeactivateMinigame
+      objectReference: {fileID: 0}
+    - target: {fileID: 1734748484036948287, guid: 2a70b8b26330c5347996ee400b139e98,
+        type: 3}
+      propertyPath: m_Teleporting.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: TP_M_woodCutting, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 7387251362764855686, guid: 2a70b8b26330c5347996ee400b139e98,
         type: 3}
       propertyPath: m_Name
@@ -4264,6 +4280,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 972734769}
     m_Modifications:
+    - target: {fileID: 1734748484036948287, guid: 2a70b8b26330c5347996ee400b139e98,
+        type: 3}
+      propertyPath: m_Teleporting.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1385507841}
+    - target: {fileID: 1734748484036948287, guid: 2a70b8b26330c5347996ee400b139e98,
+        type: 3}
+      propertyPath: m_Teleporting.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: DeactivateMinigame
+      objectReference: {fileID: 0}
+    - target: {fileID: 1734748484036948287, guid: 2a70b8b26330c5347996ee400b139e98,
+        type: 3}
+      propertyPath: m_Teleporting.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: TP_M_woodCutting, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 7387251362764855686, guid: 2a70b8b26330c5347996ee400b139e98,
         type: 3}
       propertyPath: m_Name
@@ -13796,6 +13827,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1377774338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1377774323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9f7e3651016bd541b900c80b464ac35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _treeManagerRef: {fileID: 207854894}
 --- !u!1 &1382507861
 GameObject:
   m_ObjectHideFlags: 0
@@ -13930,6 +13974,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d64a546be49af143877b12442bf8c3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1385507833 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7387251362764855686, guid: 2a70b8b26330c5347996ee400b139e98,
+    type: 3}
+  m_PrefabInstance: {fileID: 367635598}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1385507841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1385507833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9f7e3651016bd541b900c80b464ac35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _treeManagerRef: {fileID: 207854894}
 --- !u!1 &1414884835
 GameObject:
   m_ObjectHideFlags: 0
@@ -14586,7 +14649,7 @@ PrefabInstance:
     - target: {fileID: 85097727426779472, guid: c89655f869e996e46bb65b8662abbbe1,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 85097727426779472, guid: c89655f869e996e46bb65b8662abbbe1,
         type: 3}
@@ -18797,6 +18860,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManagerRef: {fileID: 1921851749}
+  _goodHit: {fileID: 8300000, guid: 2edc73d1c0469824eb9737bd341db55e, type: 3}
+  _badHit: {fileID: 8300000, guid: 110d384ac24d9794b824da53ccac52d1, type: 3}
   nbStartingLife: 3
 --- !u!1 &1928161385
 GameObject:
@@ -19097,6 +19162,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 972734769}
     m_Modifications:
+    - target: {fileID: 1734748484036948287, guid: 2a70b8b26330c5347996ee400b139e98,
+        type: 3}
+      propertyPath: m_Teleporting.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1385507841}
+    - target: {fileID: 1734748484036948287, guid: 2a70b8b26330c5347996ee400b139e98,
+        type: 3}
+      propertyPath: m_Teleporting.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: DeactivateMinigame
+      objectReference: {fileID: 0}
+    - target: {fileID: 1734748484036948287, guid: 2a70b8b26330c5347996ee400b139e98,
+        type: 3}
+      propertyPath: m_Teleporting.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: TP_M_woodCutting, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 7387251362764855686, guid: 2a70b8b26330c5347996ee400b139e98,
         type: 3}
       propertyPath: m_Name
@@ -19231,6 +19311,19 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1965867850}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1965867859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 311912717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9f7e3651016bd541b900c80b464ac35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _treeManagerRef: {fileID: 207854894}
 --- !u!1 &1993256428 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5686134208185362930, guid: 1fd3a7c43c8190f4d8c167ebde694364,
@@ -21078,6 +21171,8 @@ GameObject:
   - component: {fileID: 2127160938}
   - component: {fileID: 2127160937}
   - component: {fileID: 2127160936}
+  - component: {fileID: 2127160939}
+  - component: {fileID: 2127160940}
   m_Layer: 0
   m_Name: Sound Manager
   m_TagString: Untagged
@@ -21212,6 +21307,33 @@ Transform:
   m_Father: {fileID: 1660264431}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2127160939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2127160935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0755a2ba17a31d643b4a27e3034d8a79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sound: {fileID: 0}
+  volume: 1
+  randomPitchVariance: 0
+--- !u!114 &2127160940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2127160935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3abb6eea3b4634648a66ffdab7ca0a3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2145765430
 GameObject:
   m_ObjectHideFlags: 0
@@ -22043,6 +22165,146 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 915821818}
     m_Modifications:
+    - target: {fileID: 1734748484036948287, guid: 2a70b8b26330c5347996ee400b139e98,
+        type: 3}
+      propertyPath: m_Activated.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1734748484036948287, guid: 2a70b8b26330c5347996ee400b139e98,
+        type: 3}
+      propertyPath: m_Deactivated.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1734748484036948287, guid: 2a70b8b26330c5347996ee400b139e98,
+        type: 3}
+      propertyPath: m_Teleporting.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1734748484036948287, guid: 2a70b8b26330c5347996ee400b139e98,
+        type: 3}
+      propertyPath: m_FirstSelectEntered.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1734748484036948287, guid: 2a70b8b26330c5347996ee400b139e98,
+        type: 3}
+      propertyPath: m_Activated.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1734748484036948287, guid: 2a70b8b26330c5347996ee400b139e98,
+        type: 3}
+      propertyPath: m_Activated.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1734748484036948287, guid: 2a70b8b26330c5347996ee400b139e98,
+        type: 3}
+      propertyPath: m_Deactivated.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1734748484036948287, guid: 2a70b8b26330c5347996ee400b139e98,
+        type: 3}
+      propertyPath: m_Teleporting.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1734748484036948287, guid: 2a70b8b26330c5347996ee400b139e98,
+        type: 3}
+      propertyPath: m_Deactivated.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1734748484036948287, guid: 2a70b8b26330c5347996ee400b139e98,
+        type: 3}
+      propertyPath: m_Teleporting.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 7387251362375931282}
+    - target: {fileID: 1734748484036948287, guid: 2a70b8b26330c5347996ee400b139e98,
+        type: 3}
+      propertyPath: m_Activated.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1734748484036948287, guid: 2a70b8b26330c5347996ee400b139e98,
+        type: 3}
+      propertyPath: m_Activated.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: CallOnActivate
+      objectReference: {fileID: 0}
+    - target: {fileID: 1734748484036948287, guid: 2a70b8b26330c5347996ee400b139e98,
+        type: 3}
+      propertyPath: m_Deactivated.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1734748484036948287, guid: 2a70b8b26330c5347996ee400b139e98,
+        type: 3}
+      propertyPath: m_Teleporting.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1734748484036948287, guid: 2a70b8b26330c5347996ee400b139e98,
+        type: 3}
+      propertyPath: m_Deactivated.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: CallOnDeactivate
+      objectReference: {fileID: 0}
+    - target: {fileID: 1734748484036948287, guid: 2a70b8b26330c5347996ee400b139e98,
+        type: 3}
+      propertyPath: m_Teleporting.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: ActivateMiniGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 1734748484036948287, guid: 2a70b8b26330c5347996ee400b139e98,
+        type: 3}
+      propertyPath: m_FirstSelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1734748484036948287, guid: 2a70b8b26330c5347996ee400b139e98,
+        type: 3}
+      propertyPath: m_FirstSelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 7387251362375931282}
+    - target: {fileID: 1734748484036948287, guid: 2a70b8b26330c5347996ee400b139e98,
+        type: 3}
+      propertyPath: m_FirstSelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1734748484036948287, guid: 2a70b8b26330c5347996ee400b139e98,
+        type: 3}
+      propertyPath: m_FirstSelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: DeactivateMinigame
+      objectReference: {fileID: 0}
+    - target: {fileID: 1734748484036948287, guid: 2a70b8b26330c5347996ee400b139e98,
+        type: 3}
+      propertyPath: m_Activated.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: DebugActiveTeleport, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1734748484036948287, guid: 2a70b8b26330c5347996ee400b139e98,
+        type: 3}
+      propertyPath: m_Deactivated.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: DebugActiveTeleport, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1734748484036948287, guid: 2a70b8b26330c5347996ee400b139e98,
+        type: 3}
+      propertyPath: m_Teleporting.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: TP_M_woodCutting, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1734748484036948287, guid: 2a70b8b26330c5347996ee400b139e98,
+        type: 3}
+      propertyPath: m_FirstSelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: TP_M_woodCutting, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1734748484036948287, guid: 2a70b8b26330c5347996ee400b139e98,
+        type: 3}
+      propertyPath: m_Activated.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1734748484036948287, guid: 2a70b8b26330c5347996ee400b139e98,
+        type: 3}
+      propertyPath: m_Deactivated.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1734748484036948287, guid: 2a70b8b26330c5347996ee400b139e98,
+        type: 3}
+      propertyPath: m_Teleporting.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1734748484036948287, guid: 2a70b8b26330c5347996ee400b139e98,
+        type: 3}
+      propertyPath: m_FirstSelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 7387251362764855686, guid: 2a70b8b26330c5347996ee400b139e98,
         type: 3}
       propertyPath: m_Name
@@ -22187,3 +22449,16 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 7387251362375931273}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7387251362375931282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 465830122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9f7e3651016bd541b900c80b464ac35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _treeManagerRef: {fileID: 207854894}

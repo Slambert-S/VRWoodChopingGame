@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3781929215928478456}
   - component: {fileID: 5793772010111338049}
   - component: {fileID: 6993677932117076927}
+  - component: {fileID: 3165455391558856138}
   m_Layer: 9
   m_Name: LeftLog
   m_TagString: Untagged
@@ -73,7 +74,10 @@ MonoBehaviour:
   isSpinning: 0
   rotationSpeed: 500
   rotationDirection: 1
+  _useCustomRemoveAnimation: 0
   yPosOfset: 0
+  singleMAt:
+  - {fileID: -6478536213147159724, guid: d145fc3d0cae1104583bb0f7d66d246f, type: 3}
 --- !u!33 &5793772010111338049
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -103,6 +107,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -6478536213147159724, guid: d145fc3d0cae1104583bb0f7d66d246f, type: 3}
+  - {fileID: 2100000, guid: 6323f36c608677d45913c4ddfbd2e953, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -124,6 +129,23 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &3165455391558856138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 19321474332798886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02c6ba85ae408af41a50376fdb7955e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeColor: {r: 0.33333334, g: 0.972549, b: 0.4, a: 0.54509807}
+  deactivatedColor: {r: 0, g: 0, b: 0, a: 0}
+  _activeOutlineSize: 0.0109
+  startWithVisibleOutline: 0
+  objectWithOutline: {fileID: 0}
 --- !u!1 &4765195023449869523
 GameObject:
   m_ObjectHideFlags: 0

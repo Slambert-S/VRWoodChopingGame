@@ -16,6 +16,12 @@ public class StatTraking : MonoBehaviour
     private GameManagerWoodCutting gameManagerRef;
 
     [SerializeField]
+    private AudioClip _goodHit;
+
+    [SerializeField]
+    private AudioClip _badHit;
+
+    [SerializeField]
     private int nbStartingLife = 3;      
     private void Awake()
     {
@@ -58,6 +64,9 @@ public class StatTraking : MonoBehaviour
     {
         goodLogHitCount++;
         gameManagerRef.UpdateGameState(GetTotalLogHit());
+        PlaySoundController.current.PlayOneShot(_goodHit);
+
+
         //GameUIManager.current.UpdateGoodHit(goodLogHitCount);
     }
   
@@ -70,6 +79,7 @@ public class StatTraking : MonoBehaviour
     {
         badLogHitCount++;
         gameManagerRef.UpdateGameState(GetTotalLogHit());
+        PlaySoundController.current.PlayOneShot(_badHit);
         //  GameUIManager.current.UpdateBadHit(badLogHitCount);
     }
 

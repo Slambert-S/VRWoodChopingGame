@@ -10,6 +10,9 @@ public class TreeManager : MonoBehaviour
     public GameObject topLog;
     [SerializeField]
     private Transform originalBottomLogPositionRef;
+
+    [SerializeField]
+    private GameObject _playerRef;
     // Start is called before the first frame update
     public int createdChildNumber = 0;
     public GameObject[] logPrefab;
@@ -162,6 +165,7 @@ public class TreeManager : MonoBehaviour
                 bottomLog = nextBottomLog;
                 // [Objective] : move the tree down
                 LeanTween.move(bottomLog, originalBottomLogPositionRef, 0.25f).setOnComplete(ToExecuteAfterFinishingTweening);
+                
                 //CreateNextTopChild();
 
             }
@@ -252,6 +256,7 @@ public class TreeManager : MonoBehaviour
 
     public void setUpNewTree()
     {
+        DeactivateOutlineIfPLayerIsAway();
         Debug.Log("in SetUpNewTree");
         createdChildNumber = 0;
         string newName = "Log number " + createdChildNumber;
@@ -367,6 +372,25 @@ public class TreeManager : MonoBehaviour
             return null;
         }
 
+    }
+
+    public void ActivateBottomLogOutline()
+    {
+        if(bottomLog.GetComponent<outlineManagment>() != null)
+        {
+            bottomLog.GetComponent<outlineManagment>().ActivateOutline();
+        }
+    }
+
+    public void DeactivateOutlineIfPLayerIsAway()
+    {
+        if(Vector3.Distance(this.transform.position , _playerRef.transform.position) >= 1)
+        {
+            if(bottomLog != null)
+            {
+                bottomLog.GetComponent<outlineManagment>().DeactivateOutline();
+            }
+        }
     }
 
    

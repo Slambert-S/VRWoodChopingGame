@@ -43,6 +43,8 @@ public class ParentLog : MonoBehaviour
     [SerializeField]
     private float yPosOfset = 0;
 
+    [SerializeField]
+    private Material[] singleMAt;
 
     // Start is called before the first frame update
     void Start()
@@ -156,6 +158,13 @@ public class ParentLog : MonoBehaviour
                 gameObject.GetComponentInParent<PlaySoundsFromList>().RandomClipFromSpecificList(0);
 
                 //Testing things ouf for the cutting
+                // this.gameObject.GetComponent<MeshRenderer>().materials[1].
+              /*  Material[] materials = this.gameObject.GetComponent<MeshRenderer>().materials;
+                Destroy(materials[1]);
+                materials[1] = null;*/
+                this.gameObject.GetComponent<MeshRenderer>().materials = singleMAt;
+
+
                 ColiderObject.GetComponentInChildren<SliceObjectTesting>().ManualRayCastCall();
             }
             else
@@ -246,6 +255,7 @@ public class ParentLog : MonoBehaviour
             positionBeforeLaunch = this.transform.position;
             isLaunched = true;*/
             // this.gameObject.GetComponent<Rigidbody>().AddForce(ImpulsDirection, ForceMode.Impulse);
+            this.GetComponent<outlineManagment>().DeactivateOutline();
             if (_useCustomRemoveAnimation)
             {
                 StartCustomRemoveAnimation();
@@ -348,6 +358,10 @@ public class ParentLog : MonoBehaviour
     public void SetAsActiveLog()
     {
         isActiveBottomLog = true;
+        this.GetComponent<outlineManagment>().ActivateOutline();
+        //activate the outline
+        //set it to the green coolor
+
         //SetUpShader for active log
     }
 
