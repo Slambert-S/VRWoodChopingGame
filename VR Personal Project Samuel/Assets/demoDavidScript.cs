@@ -4,26 +4,14 @@ using UnityEngine;
 
 public class demoDavidScript : MonoBehaviour
 {
-    public Light lightSource;
-    public GameObject ground;
-    // Start is called before the first frame update
-    void Start()
-    {
-       // this.GetComponent<Renderer>().materials.SetValue()
-        
-    }
+    
+    public GameObject player;
+    public GameObject newPosition;
+    
 
-    // Update is called once per frame
-    void Update()
+    public void MovePlayer()
     {
-        
-        if(Vector3.Distance(this.gameObject.transform.position , ground.gameObject.transform.position) > 10)
-        {
-            lightSource.intensity = 0.1f;
-        }
-        else
-        {
-            lightSource.intensity = 10;
-        }
+        player.transform.position = newPosition.transform.position;
+        player.transform.rotation = newPosition.transform.rotation;
     }
 }
