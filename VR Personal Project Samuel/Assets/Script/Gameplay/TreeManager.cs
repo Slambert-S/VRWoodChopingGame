@@ -18,9 +18,13 @@ public class TreeManager : MonoBehaviour
     public GameObject[] logPrefab;
     public int wantedNumberLog =4;
     
+    // Boolen that indicate if the AXE can interact with the log (reset when the axe move away) 
     public bool canInteractWithTree = true;
     private GameObject lastInteractingObject;
-   // private bool gameIsStarted = false;
+    // private bool gameIsStarted = false;
+    [SerializeField]
+    private bool isTutorial = false;
+    
 
     [Header("Debug control")]
     public bool startTreeEmpty = false;
@@ -133,7 +137,7 @@ public class TreeManager : MonoBehaviour
         if(currentBottomLogRef != null)
         {
             ScreenUILogSystem.Instance.LogMessageToTreeUI("In replace Bottom Child");
-            // [Objective] : Get a reference to the log that will be the newxt a the bottom.
+            // [Objective] : Get a reference to the log that will be the next a the bottom.
             GameObject nextBottomLog = null;
             try
             {
@@ -148,10 +152,9 @@ public class TreeManager : MonoBehaviour
             nextBottomLog.GetComponent<ParentLog>().bottomNeighbourAnchor = null;
 
             // [Objective] : Removing the log that was hit.
-            currentBottomLogRef.RemoveObjectFromScene(goodSide);
+            currentBottomLogRef.RemoveObjectFromScene(goodSide, isTutorial);
             
             //Check if the wrong side is hit and the game would finish.
-            //if => 
             if(goodSide == false  && StatTraking.current.GetLifeRemaining() == 0)
             {
                 //we filter the hit that would lead to a game over
@@ -178,6 +181,68 @@ public class TreeManager : MonoBehaviour
 
     }
 
+    private void ReplaceLogTutorial(bool goodSide)
+    {
+
+
+        // [Objective] : Prevent te player to keep interacting with the tree.
+        //target the AXE
+        SetCanInteractWithTree(false);
+        lastInteractingObject.GetComponentInChildren<AxeOutlineManager>().setDeactivatedOutline();
+
+        // get the bottom log section and get the parent log script
+        ParentLog currentBottomLogRef = bottomLog.GetComponent<ParentLog>();
+        //check if not null
+        if (currentBottomLogRef != null)
+        {
+            ScreenUILogSystem.Instance.LogMessageToTreeUI("In replace Bottom Child");
+            // [Objective] : Get a reference to the log that will be the next a the bottom.
+            GameObject nextBottomLog = null;
+           /*  
+            *  there will never be a next log
+            try
+            {
+                // your code segment which might throw an exception
+                nextBottomLog = currentBottomLogRef.topNeighbourAnchor.transform.parent.gameObject;
+            }
+            catch (Exception ex)
+            {
+                Debug.LogException(ex, this);
+            }
+           
+
+            nextBottomLog.GetComponent<ParentLog>().bottomNeighbourAnchor = null;
+           */
+            // [Objective] : Removing the log that was hit.
+            currentBottomLogRef.RemoveObjectFromScene(goodSide, isTutorial);
+
+            //Check if the wrong side is hit and the game would finish.
+            if (goodSide == false && StatTraking.current.GetLifeRemaining() == 0)
+            {
+                //we filter the hit that would lead to a game over
+                topLog = null;
+
+            }
+            else
+            {
+                //This part is simply to move the stack of log down.
+
+                bottomLog = nextBottomLog;
+                // [Objective] : move the tree down
+                LeanTween.move(bottomLog, originalBottomLogPositionRef, 0.25f).setOnComplete(ToExecuteAfterFinishingTweening);
+
+                //CreateNextTopChild();
+
+            }
+
+            //Separate the last hit
+
+
+
+        }
+
+    }
+
     private void TimeOverAdapter()
     {
         lastInteractingObject.GetComponentInChildren<ChangeAxeCrackVisual>().IncreaseCrackVisual();
@@ -188,6 +253,10 @@ public class TreeManager : MonoBehaviour
     {
         bottomLog.GetComponent<ParentLog>().SetAsActiveLog();
         //[To do : call InitialiseLog() ]
+        if (isTutorial)
+        {
+            bottomLog.GetComponent<MeshRenderer>().enabled = true;
+        }
         bottomLog.GetComponent<ParentLog>().InitialiseLog();
         CreateNextTopChild();
     }
@@ -204,18 +273,22 @@ public class TreeManager : MonoBehaviour
             string newName = "Log number " + createdChildNumber;
             createdChildNumber++;
             GameObject newLog = SelectAndInstatiateNewLog();
+            if (isTutorial)
+            {
+                newLog.GetComponent<MeshRenderer>().enabled = false;
+            }
             newLog.transform.name = newName;
            
-            // [Objective] :  Set up the anchor link.
+            // Set up the  top and botom anchor link.
             ParentLog newLogScriptRef = newLog.GetComponent<ParentLog>();
             newLogScriptRef.SetUpObjectRef();
 
-            // [Objective] : Set up the the reference to the bottom neighbourg and set the Y ofset.
+            //  On the new log, Set up the reference to their bottom neighbourg and set the Y ofset.
             ParentLog topLogParentScriptRef = topLog.GetComponent<ParentLog>();
             newLogScriptRef.bottomNeighbourAnchor = topLogParentScriptRef.getTopLink();
             newLogScriptRef.SetYOfsetPos(yOfsetOfChild);
 
-            // [Objective] : Link the old top log to the newly created log and update top Log.
+            //Link the old top log to the newly created log and update top Log.
             topLogParentScriptRef.topNeighbourAnchor = newLogScriptRef.getBottomLink();
             topLog = newLog;
 
@@ -288,26 +361,32 @@ public class TreeManager : MonoBehaviour
     /// <returns> Return a reference to the new Log created</returns>
     private GameObject SelectAndInstatiateNewLog()
     {
+        
         int logIntToCreate = 1;
-        switch (gameManagerRef.GetGameLevel())
-        {
-            case GameManagerWoodCutting.gameLevel.start:
-                logIntToCreate = UnityEngine.Random.Range(1, 3);
-                gameManagerRef.IncreaseLevel();
-                break;
-            case GameManagerWoodCutting.gameLevel.one:
-                logIntToCreate = UnityEngine.Random.Range(1, 3);
-                break;
-            case GameManagerWoodCutting.gameLevel.two:
-                logIntToCreate = UnityEngine.Random.Range(0, 3);
-                break;
-            case GameManagerWoodCutting.gameLevel.tree:
-                logIntToCreate = UnityEngine.Random.Range(0, 3);
-                break;
-            default:
-                break;
+        if(isTutorial == false) { 
+            switch (gameManagerRef.GetGameLevel())
+            {
+                case GameManagerWoodCutting.gameLevel.start:
+                    logIntToCreate = UnityEngine.Random.Range(1, 3);
+                    gameManagerRef.IncreaseLevel();
+                    break;
+                case GameManagerWoodCutting.gameLevel.one:
+                    logIntToCreate = UnityEngine.Random.Range(1, 3);
+                    break;
+                case GameManagerWoodCutting.gameLevel.two:
+                    logIntToCreate = UnityEngine.Random.Range(0, 3);
+                    break;
+                case GameManagerWoodCutting.gameLevel.tree:
+                    logIntToCreate = UnityEngine.Random.Range(0, 3);
+                    break;
+                default:
+                    break;
+            }
         }
-
+        else
+        {
+            logIntToCreate = 0;
+        }
         //[To DO : add a check to prefent the first log to be solid]
 
         //[To Do : add a way to control wich log a created depending on the "Level"]

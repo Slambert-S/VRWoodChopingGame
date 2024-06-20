@@ -237,7 +237,7 @@ public class ParentLog : MonoBehaviour
     /// The impulse direction will change depending on the active side of the log.
     /// </summary>
     /// <param name="goodSide"> Value that indicate it the log was hit on their active side </param>
-    public void RemoveObjectFromScene(bool goodSide)
+    public void RemoveObjectFromScene(bool goodSide, bool isTutorial)
     {
         if(goodSide) //IF he log is hit on the good side
         {
@@ -268,7 +268,10 @@ public class ParentLog : MonoBehaviour
 
             //We want to destroy the cube
             StartCoroutine(TotalDestruction(0.75f));
-            StatTraking.current.IncreasGoodLogHit();
+            if (!isTutorial)
+            {
+                StatTraking.current.IncreasGoodLogHit();
+            }
 
         }
         else //IF the log is hit on the wrong side
@@ -280,10 +283,16 @@ public class ParentLog : MonoBehaviour
                 StartCoroutine(TotalDestruction(0.75f));
                 Debug.Log(StatTraking.current.GetLifeRemaining());
             }
-            StatTraking.current.IncreasBadLogHit();
-            StatTraking.current.RemoveLife();
+            if (!isTutorial)
+            {
+                StatTraking.current.IncreasBadLogHit();
+                StatTraking.current.RemoveLife();
+            }
         }
-        GameEvents.current.LogIsRemoved();
+        if (!isTutorial)
+        {
+            GameEvents.current.LogIsRemoved();
+        }
 
     }
 
