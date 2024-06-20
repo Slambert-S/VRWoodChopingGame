@@ -3903,6 +3903,8 @@ MonoBehaviour:
   - {fileID: 4587849671584529141, guid: c7fac948657741b48b2dc6e8459c4e5c, type: 3}
   wantedNumberLog: 4
   canInteractWithTree: 1
+  isTutorial: 1
+  tutorialLogToUse: 1
   startTreeEmpty: 1
 --- !u!114 &207854895
 MonoBehaviour:
@@ -28250,6 +28252,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 6993677932117076927, guid: d94ae7369303a12409dcfdab1fb96334,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6993677932117076927, guid: d94ae7369303a12409dcfdab1fb96334,
         type: 3}

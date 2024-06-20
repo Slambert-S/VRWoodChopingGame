@@ -24,6 +24,8 @@ public class TreeManager : MonoBehaviour
     // private bool gameIsStarted = false;
     [SerializeField]
     private bool isTutorial = false;
+    [SerializeField]
+    private int tutorialLogToUse = 1;
     
 
     [Header("Debug control")]
@@ -116,6 +118,10 @@ public class TreeManager : MonoBehaviour
         if (gameManagerRef.gameIsStarted == false && goodSide == true)
         {
             GameEvents.current.GameIsStarted();
+            if (isTutorial)
+            {
+                GameEvents.current.StopTimer();
+            }
             //gameIsStarted = true;
         }
         
@@ -385,7 +391,7 @@ public class TreeManager : MonoBehaviour
         }
         else
         {
-            logIntToCreate = 0;
+            logIntToCreate = tutorialLogToUse;
         }
         //[To DO : add a check to prefent the first log to be solid]
 

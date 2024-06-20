@@ -21,6 +21,15 @@ public class GameEvents : MonoBehaviour
         }
     }
 
+    public event Action onStopTimer;
+    public void StopTimer()
+    {
+        if(onStopTimer != null)
+        {
+            onStopTimer();
+        }
+    }
+
     public event Action onLogIsRemoved;
     public void LogIsRemoved()
     {
