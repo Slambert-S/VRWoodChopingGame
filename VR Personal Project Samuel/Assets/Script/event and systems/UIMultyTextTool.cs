@@ -8,9 +8,10 @@ using TMPro;
 public class UIMultyTextTool : MonoBehaviour
 {
     [SerializeField]
-    private TMP_Text[] pagesOfText;
+    private GameObject[] pagesOfText;
     private int activePageIndex = 0;
     public int pageToBeOpenFirst = 0;
+    public bool displayHideOnFirstPage;
 
     [Header("Button Used")]
     [SerializeField]
@@ -18,7 +19,11 @@ public class UIMultyTextTool : MonoBehaviour
     [SerializeField]
     private Button previousButton;
     [SerializeField]
-    private Button hideButton;
+    private Button hideButtonEnd;
+    [SerializeField]
+    private Button hideButtonStart;
+
+
 
     [Header("Edit mode control")]
     public int EditorActivePage = 0;
@@ -132,7 +137,10 @@ public class UIMultyTextTool : MonoBehaviour
 
         if(targetedPage < pagesOfText.Length - 1)
         {
-            HideButton(hideButton);
+            if (hideButtonEnd)
+                HideButton(hideButtonEnd);
+            if(hideButtonStart)
+                HideButton(hideButtonStart);
             ShowButton(nextButton);
             ShowButton(previousButton);
         }
@@ -140,13 +148,20 @@ public class UIMultyTextTool : MonoBehaviour
         if(targetedPage == 0)
         {
             HideButton(previousButton);
+            if (displayHideOnFirstPage)
+            {
+                if(hideButtonStart)
+                    ShowButton(hideButtonStart);
+            }
+
             //ShowButton(nextButton);
         }
         else if (targetedPage == pagesOfText.Length-1)
         {
             //if the last page is display
             HideButton(nextButton);
-            ShowButton(hideButton);
+            if(hideButtonEnd)
+                ShowButton(hideButtonEnd);
             ShowButton(previousButton);
         }
     }

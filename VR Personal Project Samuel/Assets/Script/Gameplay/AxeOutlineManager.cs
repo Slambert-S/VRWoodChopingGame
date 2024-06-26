@@ -40,15 +40,14 @@ public class AxeOutlineManager : MonoBehaviour
     {
         if(outlineMaterial != null)
         {
-            
             outlineMaterial.SetColor("_Outline_Color", activeColor);
         }
     }
     public void setDeactivatedOutline()
     {
+
         if (outlineMaterial != null) 
         {
-
             Debug.Log("Should change color to deactivated");
             outlineMaterial.SetColor("_Outline_Color", deactivatedColor);
         }
@@ -56,5 +55,7 @@ public class AxeOutlineManager : MonoBehaviour
         {
             Debug.LogWarning("Outline material is not set");
         }
+
+
     }
 }

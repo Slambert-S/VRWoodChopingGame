@@ -18,6 +18,12 @@ public class AxeAwayFromTree : MonoBehaviour
     {
         AcivateAxeInteraction();
     }
+
+    public void updateTreeToInteractWith(Transform newposition, TreeManager treeManager)
+    {
+        treeScriptRef = treeManager;
+        positionToMoveAwayFrom = newposition;
+    }
    /* private void OnTriggerEnter(Collider other)
     {
         ScreenUILogSystem.Instance.LogMessageToTreeUI("Collisions detected");

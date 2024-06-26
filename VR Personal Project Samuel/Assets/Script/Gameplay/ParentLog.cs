@@ -5,8 +5,9 @@ using UnityEngine;
 public class ParentLog : MonoBehaviour
 {
     //Section for Value used
-    private Vector3 angleForLeftLog = new Vector3(-90.0f, 0, 180f);
-    private Vector3 angleForRightLog = new Vector3(-90.0f, 0, 0);
+    private Vector3 _angleForLeftLog = new Vector3(-90.0f, 0, 180f);
+    private Vector3 _angleForRightLog = new Vector3(-90.0f, 0, 0);
+    private Vector3 _angleForSolidLog = new Vector3(-90.0f, -90.0f, 0);
     /// Section used for detecting a colisions
     [SerializeField]
     private ChildLog.ActiveChildSide activeSide;
@@ -26,20 +27,24 @@ public class ParentLog : MonoBehaviour
     private Transform objectTopAnchorRef;
     [SerializeField]
     private Transform objectBottomAnchorRef;
+   /* 
     private bool isLaunched =false;
     private Vector3 positionBeforeLaunch;
+   */
     [SerializeField]
     private bool isSpinning = false;
     public float rotationSpeed = 500f;
     [SerializeField]
     private int rotationDirection = 1;
 
-
-
+    [SerializeField]
+    private bool _useCustomRemoveAnimation = false;
 
     [SerializeField]
     private float yPosOfset = 0;
 
+    [SerializeField]
+    private Material[] singleMAt;
 
     // Start is called before the first frame update
     void Start()
@@ -75,14 +80,14 @@ public class ParentLog : MonoBehaviour
     void Update()
     {
         // LinkNeighbour();
-        if (isLaunched)
+      /*  if (isLaunched)
         {
           //  Debug.Log(Vector3.Distance(this.transform.position, positionBeforeLaunch));
             if(Vector3.Distance(this.transform.position, positionBeforeLaunch) >= 1)
             {
                 this.gameObject.GetComponent<BoxCollider>().isTrigger = false;
             }
-        }
+        }*/
 
         if (isSpinning)
         {
@@ -153,6 +158,13 @@ public class ParentLog : MonoBehaviour
                 gameObject.GetComponentInParent<PlaySoundsFromList>().RandomClipFromSpecificList(0);
 
                 //Testing things ouf for the cutting
+                // this.gameObject.GetComponent<MeshRenderer>().materials[1].
+              /*  Material[] materials = this.gameObject.GetComponent<MeshRenderer>().materials;
+                Destroy(materials[1]);
+                materials[1] = null;*/
+                this.gameObject.GetComponent<MeshRenderer>().materials = singleMAt;
+
+
                 ColiderObject.GetComponentInChildren<SliceObjectTesting>().ManualRayCastCall();
             }
             else
@@ -225,10 +237,11 @@ public class ParentLog : MonoBehaviour
     /// The impulse direction will change depending on the active side of the log.
     /// </summary>
     /// <param name="goodSide"> Value that indicate it the log was hit on their active side </param>
-    public void RemoveObjectFromScene(bool goodSide)
+    public void RemoveObjectFromScene(bool goodSide, bool isTutorial)
     {
         if(goodSide) //IF he log is hit on the good side
         {
+            /*
             //Objective : add component required for physics and push the log in a specific direction
             this.gameObject.AddComponent<Rigidbody>();
             this.gameObject.GetComponent<Rigidbody>().useGravity = true;
@@ -240,13 +253,25 @@ public class ParentLog : MonoBehaviour
                 ImpulsDirection *= -1;
             }
             positionBeforeLaunch = this.transform.position;
-            isLaunched = true;
+            isLaunched = true;*/
             // this.gameObject.GetComponent<Rigidbody>().AddForce(ImpulsDirection, ForceMode.Impulse);
-            this.gameObject.GetComponent<MeshRenderer>().enabled = false;
+            this.GetComponent<outlineManagment>().DeactivateOutline();
+            if (_useCustomRemoveAnimation)
+            {
+                StartCustomRemoveAnimation();
+            }
+            else
+            {
+                this.gameObject.GetComponent<MeshRenderer>().enabled = false;
+
+            }
 
             //We want to destroy the cube
             StartCoroutine(TotalDestruction(0.75f));
-            StatTraking.current.IncreasGoodLogHit();
+            if (!isTutorial)
+            {
+                StatTraking.current.IncreasGoodLogHit();
+            }
 
         }
         else //IF the log is hit on the wrong side
@@ -258,12 +283,24 @@ public class ParentLog : MonoBehaviour
                 StartCoroutine(TotalDestruction(0.75f));
                 Debug.Log(StatTraking.current.GetLifeRemaining());
             }
-            StatTraking.current.IncreasBadLogHit();
-            StatTraking.current.RemoveLife();
+            if (!isTutorial)
+            {
+                StatTraking.current.IncreasBadLogHit();
+                StatTraking.current.RemoveLife();
+            }
         }
-        GameEvents.current.LogIsRemoved();
+        if (!isTutorial)
+        {
+            GameEvents.current.LogIsRemoved();
+        }
 
     }
+
+    public virtual void StartCustomRemoveAnimation()
+    {
+
+    }
+
 
     public void RemoveObjectWhenGameOver()
     {
@@ -289,16 +326,23 @@ public class ParentLog : MonoBehaviour
         switch (activeSide)     
         {
             case ChildLog.ActiveChildSide.None:
+                this.gameObject.transform.localEulerAngles = _angleForSolidLog;
                 break;
             case ChildLog.ActiveChildSide.Left:
-                this.gameObject.transform.localEulerAngles = angleForLeftLog;
+                this.gameObject.transform.localEulerAngles = _angleForLeftLog;
                 break;
             case ChildLog.ActiveChildSide.Right:
-                this.gameObject.transform.localEulerAngles = angleForRightLog;
+                this.gameObject.transform.localEulerAngles = _angleForRightLog;
                 break;
             default:
                 break;
         }
+        
+    }
+
+    public virtual void InitialiseLog()
+    {
+
     }
 
         /// <summary>
@@ -323,6 +367,10 @@ public class ParentLog : MonoBehaviour
     public void SetAsActiveLog()
     {
         isActiveBottomLog = true;
+        this.GetComponent<outlineManagment>().ActivateOutline();
+        //activate the outline
+        //set it to the green coolor
+
         //SetUpShader for active log
     }
 

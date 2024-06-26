@@ -21,6 +21,15 @@ public class GameEvents : MonoBehaviour
         }
     }
 
+    public event Action onStopTimer;
+    public void StopTimer()
+    {
+        if(onStopTimer != null)
+        {
+            onStopTimer();
+        }
+    }
+
     public event Action onLogIsRemoved;
     public void LogIsRemoved()
     {
@@ -63,6 +72,15 @@ public class GameEvents : MonoBehaviour
         if (onGameReset != null)
         {
             onGameReset();
+        }
+    }
+
+    public static event Action<bool> onTeleportationParticleChange;
+    public void OnTeleportationParticleChange(bool value)
+    {
+        if (onTeleportationParticleChange != null)
+        {
+            onTeleportationParticleChange(value);
         }
     }
 

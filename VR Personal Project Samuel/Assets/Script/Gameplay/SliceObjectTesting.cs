@@ -22,7 +22,8 @@ public class SliceObjectTesting : MonoBehaviour
         
     }
 
-  /*  // Update is called once per frame
+  /* 
+   // Update is called once per frame
     void FixedUpdate()
     {
         bool hasHit = Physics.Linecast(startSlicePoint.position, endSlicePoint.position,out RaycastHit hit, slicableLayer);
@@ -31,7 +32,8 @@ public class SliceObjectTesting : MonoBehaviour
             GameObject target = hit.transform.gameObject;
             Slice(target);
         }
-    }*/
+    }
+  */
     public void ManualRayCastCall()
     {
         bool hasHit = Physics.Linecast(startSlicePoint.position, endSlicePoint.position, out RaycastHit hit, slicableLayer);
