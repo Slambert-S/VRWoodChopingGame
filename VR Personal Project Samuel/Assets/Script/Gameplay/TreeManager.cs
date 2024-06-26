@@ -110,8 +110,10 @@ public class TreeManager : MonoBehaviour
 
         if (gameManagerRef.gameIsStarted == false && goodSide == false)
         {
-            Debug.Log("Can start the game because you hit the wrong side");
+            Debug.Log("Can't start the game because you hit the wrong side");
             SetCanInteractWithTree(false);
+            //Update the transfom the axe need to move away to reset.
+            lastInteractingObject.GetComponentInChildren<AxeAwayFromTree>().updateTreeToInteractWith(originalBottomLogPositionRef,this);
             return;
         }
 
@@ -136,6 +138,8 @@ public class TreeManager : MonoBehaviour
         //target the AXE
         SetCanInteractWithTree(false);
         lastInteractingObject.GetComponentInChildren<AxeOutlineManager>().setDeactivatedOutline();
+        //Update the transfom the axe need to move away to reset.
+        lastInteractingObject.GetComponentInChildren<AxeAwayFromTree>().updateTreeToInteractWith(originalBottomLogPositionRef,this);
 
         // get the bottom log section and get the parent log script
         ParentLog currentBottomLogRef = bottomLog.GetComponent<ParentLog>();

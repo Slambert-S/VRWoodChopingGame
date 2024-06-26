@@ -75,6 +75,15 @@ public class GameEvents : MonoBehaviour
         }
     }
 
+    public static event Action<bool> onTeleportationParticleChange;
+    public void OnTeleportationParticleChange(bool value)
+    {
+        if (onTeleportationParticleChange != null)
+        {
+            onTeleportationParticleChange(value);
+        }
+    }
+
 
 
 }
