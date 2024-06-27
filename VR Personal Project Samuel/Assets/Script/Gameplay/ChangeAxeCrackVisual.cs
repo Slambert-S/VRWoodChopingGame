@@ -14,7 +14,7 @@ public class ChangeAxeCrackVisual : MonoBehaviour
     void Start()
     {
         objectRenderer = GetComponent<Renderer>();
-        Debug.Log(crackValue.Capacity);
+       // Debug.Log(crackValue.Capacity);
       
         originalColor = objectRenderer.material.GetColor("_CrackColor");
         
@@ -30,12 +30,6 @@ public class ChangeAxeCrackVisual : MonoBehaviour
     {
      
         GameEvents.onGameReset -= ResetCrack;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void IncreaseCrackVisual()

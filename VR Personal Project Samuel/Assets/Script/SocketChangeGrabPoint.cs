@@ -35,7 +35,7 @@ public class SocketChangeGrabPoint : MonoBehaviour
     }
     public void ChangGrabPositionForGrabSelect(UnityEngine.XR.Interaction.Toolkit.SelectExitEventArgs args)
     {
-        Debug.Log(args.interactableObject.transform.name);
+        //Debug.Log(args.interactableObject.transform.name);
         args.interactableObject.transform.gameObject.GetComponentInChildren<changeAttachPoint>().changeGrabPoint(false);
     }
 }

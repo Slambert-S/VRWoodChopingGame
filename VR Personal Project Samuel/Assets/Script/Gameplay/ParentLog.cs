@@ -5,9 +5,9 @@ using UnityEngine;
 public class ParentLog : MonoBehaviour
 {
     //Section for Value used
-    private Vector3 _angleForLeftLog = new Vector3(-90.0f, 0, 180f);
-    private Vector3 _angleForRightLog = new Vector3(-90.0f, 0, 0);
-    private Vector3 _angleForSolidLog = new Vector3(-90.0f, -90.0f, 0);
+    private Vector3 _angleForLeftLog = new Vector3(0.0f, 0f, 0f);
+    private Vector3 _angleForRightLog = new Vector3(0.0f, 180f, 0f);
+    private Vector3 _angleForSolidLog = new Vector3(0.0f, 0.0f, 0);
     /// Section used for detecting a colisions
     [SerializeField]
     private ChildLog.ActiveChildSide activeSide;
@@ -32,10 +32,10 @@ public class ParentLog : MonoBehaviour
     private Vector3 positionBeforeLaunch;
    */
     [SerializeField]
-    private bool isSpinning = false;
+    protected bool isSpinning = false;
     public float rotationSpeed = 500f;
     [SerializeField]
-    private int rotationDirection = 1;
+    protected int rotationDirection = 1;
 
     [SerializeField]
     private bool _useCustomRemoveAnimation = false;
@@ -77,22 +77,19 @@ public class ParentLog : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    protected void Update()
     {
         // LinkNeighbour();
-      /*  if (isLaunched)
-        {
-          //  Debug.Log(Vector3.Distance(this.transform.position, positionBeforeLaunch));
-            if(Vector3.Distance(this.transform.position, positionBeforeLaunch) >= 1)
-            {
-                this.gameObject.GetComponent<BoxCollider>().isTrigger = false;
-            }
-        }*/
+        /*  if (isLaunched)
+          {
+            //  Debug.Log(Vector3.Distance(this.transform.position, positionBeforeLaunch));
+              if(Vector3.Distance(this.transform.position, positionBeforeLaunch) >= 1)
+              {
+                  this.gameObject.GetComponent<BoxCollider>().isTrigger = false;
+              }
+          }*/
 
-        if (isSpinning)
-        {
-            transform.Rotate(Vector3.forward * rotationSpeed * rotationDirection * Time.deltaTime);
-        }
+        spinLog();
     }
     private void LateUpdate()
     {
@@ -149,12 +146,21 @@ public class ParentLog : MonoBehaviour
                 firstCollisionDetected = true;
             }
           //  if(GameManagerWoodCutting.gameCanStart)
-            if(sideWhoGotHit == activeSide)
+            if(SimplifyActiveSide() == sideWhoGotHit)
             {
+                Debug.LogWarning("Good Side hit");
                 ScreenUILogSystem.Instance.LogMessageToTreeUI(sideWhoGotHit.ToString() + " : Good");
                 hitDirection = DirectionOfHit;
                 goodSideHit = true;
-                controlerToSendFeedBack.SendFeedback(HapticInteractable.HapticType.GoodSide);
+                if (controlerToSendFeedBack != null)
+                {
+                    controlerToSendFeedBack.SendFeedback(HapticInteractable.HapticType.GoodSide);
+                }
+                else
+                {
+                    Debug.LogWarning("no haptinc feedbac reciver");
+                }
+                
                 gameObject.GetComponentInParent<PlaySoundsFromList>().RandomClipFromSpecificList(0);
 
                 //Testing things ouf for the cutting
@@ -169,9 +175,16 @@ public class ParentLog : MonoBehaviour
             }
             else
             {
+                Debug.LogWarning("Wrong Side hit");
                 ScreenUILogSystem.Instance.LogMessageToTreeUI(sideWhoGotHit.ToString() + " : Wrong");
                 goodSideHit = false;
-                controlerToSendFeedBack.SendFeedback(HapticInteractable.HapticType.WrongSide);
+                if (controlerToSendFeedBack != null) {
+                    controlerToSendFeedBack.SendFeedback(HapticInteractable.HapticType.WrongSide);
+                }
+                else
+                {
+                    Debug.LogWarning("no haptinc feedbac reciver");
+                }
                 gameObject.GetComponentInParent<PlaySoundsFromList>().RandomClipFromSpecificList(1);
                 //change level of axe crack
                 if (gameObject.GetComponentInParent<TreeManager>().gameManagerRef.gameIsStarted)
@@ -185,6 +198,44 @@ public class ParentLog : MonoBehaviour
             
             gameObject.GetComponentInParent<TreeManager>().ChildWasHitManager(goodSideHit, ColiderObject);
         }
+    }
+    private ChildLog.ActiveChildSide SimplifyActiveSide()
+    {
+        ChildLog.ActiveChildSide simpleSide = ChildLog.ActiveChildSide.None;
+
+        switch (activeSide)
+        {
+            case ChildLog.ActiveChildSide.None:
+                simpleSide = ChildLog.ActiveChildSide.None;
+                break;
+            case ChildLog.ActiveChildSide.Left:
+                simpleSide = ChildLog.ActiveChildSide.Left;
+                break;
+            case ChildLog.ActiveChildSide.Right:
+                simpleSide = ChildLog.ActiveChildSide.Right;
+                break;
+            case ChildLog.ActiveChildSide.LeftSingleDuck:
+               simpleSide = ChildLog.ActiveChildSide.Left;
+                break;
+            case ChildLog.ActiveChildSide.RightSingleDuck:
+                simpleSide = ChildLog.ActiveChildSide.Right;
+                break;
+            case ChildLog.ActiveChildSide.LeftSingleBadDock:
+                simpleSide = ChildLog.ActiveChildSide.Left;
+                break;
+            case ChildLog.ActiveChildSide.RightSingleBadDuck:
+                simpleSide = ChildLog.ActiveChildSide.Right;
+                break;
+            case ChildLog.ActiveChildSide.LeftDoubleDuck:
+                simpleSide = ChildLog.ActiveChildSide.Left;
+                break;
+            case ChildLog.ActiveChildSide.RightDoubleDuck:
+               simpleSide = ChildLog.ActiveChildSide.Right;
+                break;
+            default:
+                break;
+        }
+        return simpleSide;
     }
 
     public void SaveObjectToSendHapticTo(HapticInteractable hapticReference)
@@ -307,13 +358,17 @@ public class ParentLog : MonoBehaviour
         isSpinning = true;
         rotationDirection = Random.Range(0, 2) * 2 - 1;
         LeanTween.scale(this.gameObject, new Vector3(0, 0, 0), 1.5f);
-        /*
-         * if (this.gameObject != null)
-            {
-            }
-        */
+        
         StartCoroutine(TotalDestruction(2.0f));
         
+    }
+
+    protected void spinLog()
+    {
+        if (isSpinning)
+        {
+            transform.Rotate(Vector3.up * rotationSpeed * rotationDirection * Time.deltaTime);
+        }
     }
 
     /// <summary>
@@ -323,7 +378,23 @@ public class ParentLog : MonoBehaviour
     /// </summary>
     public void SetUpObjectAfterCreation()
     {
-        switch (activeSide)     
+        /*
+        switch (activeSide)          
+        {
+            case ChildLog.ActiveChildSide.None:
+                this.gameObject.transform.localEulerAngles = _angleForSolidLog;
+                break;
+            case ChildLog.ActiveChildSide.Left:
+                this.gameObject.transform.localEulerAngles = _angleForLeftLog;
+                break;
+            case ChildLog.ActiveChildSide.Right:
+                this.gameObject.transform.localEulerAngles = _angleForRightLog;
+                break;      
+            default:
+                break;
+        }
+        */
+        switch (activeSide)
         {
             case ChildLog.ActiveChildSide.None:
                 this.gameObject.transform.localEulerAngles = _angleForSolidLog;
@@ -334,10 +405,28 @@ public class ParentLog : MonoBehaviour
             case ChildLog.ActiveChildSide.Right:
                 this.gameObject.transform.localEulerAngles = _angleForRightLog;
                 break;
+            case ChildLog.ActiveChildSide.LeftSingleDuck:
+                this.gameObject.transform.localEulerAngles = _angleForLeftLog;
+                break;
+            case ChildLog.ActiveChildSide.RightSingleDuck:
+                this.gameObject.transform.localEulerAngles = _angleForRightLog;
+                break;
+            case ChildLog.ActiveChildSide.LeftSingleBadDock:
+                this.gameObject.transform.localEulerAngles = _angleForLeftLog;
+                break;
+            case ChildLog.ActiveChildSide.RightSingleBadDuck:
+                this.gameObject.transform.localEulerAngles = _angleForRightLog;
+                break;
+            case ChildLog.ActiveChildSide.LeftDoubleDuck:
+                this.gameObject.transform.localEulerAngles = _angleForLeftLog;
+                break;
+            case ChildLog.ActiveChildSide.RightDoubleDuck:
+                this.gameObject.transform.localEulerAngles = _angleForRightLog;
+                break;
             default:
                 break;
         }
-        
+
     }
 
     public virtual void InitialiseLog()

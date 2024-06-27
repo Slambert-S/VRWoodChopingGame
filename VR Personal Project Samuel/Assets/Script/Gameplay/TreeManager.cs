@@ -20,6 +20,8 @@ public class TreeManager : MonoBehaviour
     
     // Boolen that indicate if the AXE can interact with the log (reset when the axe move away) 
     public bool canInteractWithTree = true;
+
+    [SerializeField]
     private GameObject lastInteractingObject;
     // private bool gameIsStarted = false;
     [SerializeField]
@@ -50,24 +52,29 @@ public class TreeManager : MonoBehaviour
 
     public void OnEnable()
     {
-       // GameEvents.current.onTimerOver += TimeOverAdapter;
-       /*if(GameEvents.current != null)
-        {
-            GameEvents.onGameReset += setUpNewTree;
+        // GameEvents.current.onTimerOver += TimeOverAdapter;
+        /*if(GameEvents.current != null)
+         {
+             GameEvents.onGameReset += setUpNewTree;
 
+         }
+         else
+         {
+             Debug.Log("Game event is nopt yet initialised");
+         }*/
+        if (!isTutorial)
+        {
+            GameEvents.current.onTimerOver += TimeOverAdapter;
         }
-        else
-        {
-            Debug.Log("Game event is nopt yet initialised");
-        }*/
-
-        GameEvents.current.onTimerOver += TimeOverAdapter;
         GameEvents.onGameReset += ResetGame;
     }
 
     public void OnDisable()
     {
-        GameEvents.current.onTimerOver -= TimeOverAdapter;
+        if (!isTutorial)
+        {
+            GameEvents.current.onTimerOver -= TimeOverAdapter;
+        }
         GameEvents.onGameReset -= ResetGame;
     }
 
@@ -344,6 +351,8 @@ public class TreeManager : MonoBehaviour
         createdChildNumber = 0;
         string newName = "Log number " + createdChildNumber;
         createdChildNumber++;
+
+        //Instanciate and name the new log
         GameObject newLog = SelectAndInstatiateNewLog();
         newLog.transform.name = newName;
 
@@ -353,6 +362,8 @@ public class TreeManager : MonoBehaviour
         topLog = newLog;
         bottomLog = newLog;
         bottomLog.gameObject.GetComponent<ParentLog>().SetAsActiveLog();
+
+        //create the amount of log required to have a complet tree
         for (int i = 1; i < wantedNumberLog; i++)
         {
             CreateNextTopChild();
@@ -363,8 +374,10 @@ public class TreeManager : MonoBehaviour
     public void SetCanInteractWithTree(bool newValue)
     {
         canInteractWithTree = newValue;
+        // Debug.LogWarning("In SetCanInteractWithTree and value :" + newValue);
         
     }
+
     /// <summary>
     /// Create a new random Log GameObject and handle general set up of the object.
     /// </summary>
@@ -381,13 +394,16 @@ public class TreeManager : MonoBehaviour
                     gameManagerRef.IncreaseLevel();
                     break;
                 case GameManagerWoodCutting.gameLevel.one:
-                    logIntToCreate = UnityEngine.Random.Range(1, 3);
+                    logIntToCreate = UnityEngine.Random.Range(0, 3);
                     break;
                 case GameManagerWoodCutting.gameLevel.two:
-                    logIntToCreate = UnityEngine.Random.Range(0, 3);
+                    logIntToCreate = UnityEngine.Random.Range(0, 5);
                     break;
                 case GameManagerWoodCutting.gameLevel.tree:
-                    logIntToCreate = UnityEngine.Random.Range(0, 3);
+                    logIntToCreate = UnityEngine.Random.Range(0, 7);
+                    break;
+                case GameManagerWoodCutting.gameLevel.four:
+                    logIntToCreate = UnityEngine.Random.Range(0, 9);
                     break;
                 default:
                     break;
@@ -404,6 +420,7 @@ public class TreeManager : MonoBehaviour
         //int logIntToCreate = UnityEngine.Random.Range(1, 3);
         ChildLog.ActiveChildSide logTypeToCreate = (ChildLog.ActiveChildSide)logIntToCreate;
         GameObject newLog = null;
+      /*
         switch (logTypeToCreate)
         {
             case ChildLog.ActiveChildSide.None:
@@ -421,7 +438,41 @@ public class TreeManager : MonoBehaviour
             default:
                 break;
         }
-
+      */
+        switch (logTypeToCreate)
+        {
+            case ChildLog.ActiveChildSide.None:
+                newLog = Instantiate(logPrefab[0]);
+                break;
+            case ChildLog.ActiveChildSide.Left:
+                newLog = Instantiate(logPrefab[1]);
+                //return newLog;
+                break;
+            case ChildLog.ActiveChildSide.Right:
+                newLog = Instantiate(logPrefab[2]);
+                //return newLog;
+                break;
+            case ChildLog.ActiveChildSide.LeftSingleDuck:
+                newLog = Instantiate(logPrefab[3]);
+                break;
+            case ChildLog.ActiveChildSide.RightSingleDuck:
+                newLog = Instantiate(logPrefab[4]);
+                break;
+            case ChildLog.ActiveChildSide.LeftSingleBadDock:
+                newLog = Instantiate(logPrefab[5]);
+                break;
+            case ChildLog.ActiveChildSide.RightSingleBadDuck:
+                newLog = Instantiate(logPrefab[6]);
+                break;
+            case ChildLog.ActiveChildSide.LeftDoubleDuck:
+                newLog = Instantiate(logPrefab[7]);
+                break;
+            case ChildLog.ActiveChildSide.RightDoubleDuck:
+                newLog = Instantiate(logPrefab[8]);
+                break;
+            default:
+                break;
+        }
         if(newLog != null)
         {
             if(topLog != null)

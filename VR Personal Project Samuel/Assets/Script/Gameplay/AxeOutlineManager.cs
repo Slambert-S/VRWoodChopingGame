@@ -24,11 +24,11 @@ public class AxeOutlineManager : MonoBehaviour
         {
             foreach (Material matt in objectWithOutline.GetComponent<Renderer>().materials)
             {
-                Debug.Log("[Debug]  Material name :" + matt.name);
+               // Debug.Log("[Debug]  Material name :" + matt.name);
                 if(matt.name == "Outline mt (Instance)")
                 {
                     outlineMaterial = matt;
-                    Debug.Log("[Debug] This is the correct material");
+                    //Debug.Log("[Debug] This is the correct material");
                 }
             }
         }
@@ -48,7 +48,7 @@ public class AxeOutlineManager : MonoBehaviour
 
         if (outlineMaterial != null) 
         {
-            Debug.Log("Should change color to deactivated");
+            //Debug.Log("Should change color to deactivated");
             outlineMaterial.SetColor("_Outline_Color", deactivatedColor);
         }
         else

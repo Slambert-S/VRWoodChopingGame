@@ -38,5 +38,14 @@ public class ChildLog : MonoBehaviour
             parentRef.LearnWhatChildWasHit(childSide, directionOfhit,collisionRef.transform.parent.gameObject);
         }
     }
-    public enum ActiveChildSide { None,Left,Right};
+    public enum ActiveChildSide { None,
+        Left,
+        Right,
+        LeftSingleDuck,
+        RightSingleDuck,
+        LeftSingleBadDock,
+        RightSingleBadDuck,  
+        LeftDoubleDuck,
+        RightDoubleDuck
+    };
 }

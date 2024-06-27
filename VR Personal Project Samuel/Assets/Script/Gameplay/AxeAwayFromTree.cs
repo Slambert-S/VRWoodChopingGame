@@ -8,11 +8,7 @@ public class AxeAwayFromTree : MonoBehaviour
     [SerializeField]
     private TreeManager treeScriptRef;
     public Transform positionToMoveAwayFrom;
-    void Start()
-    {
-        
-    }
-
+    
     // Update is called once per frame
     void Update()
     {
@@ -21,35 +17,29 @@ public class AxeAwayFromTree : MonoBehaviour
 
     public void updateTreeToInteractWith(Transform newposition, TreeManager treeManager)
     {
+        //[INFO] Uptade the reference use to select the tree you just interacted with and the position to move away from
         treeScriptRef = treeManager;
         positionToMoveAwayFrom = newposition;
+       // Debug.LogWarning("In updateTreeToInteract");
     }
-   /* private void OnTriggerEnter(Collider other)
-    {
-        ScreenUILogSystem.Instance.LogMessageToTreeUI("Collisions detected");
-        if (other.name == "axe head")
-        {
-            treeScriptRef.SetCanInteractWithTree(true);
-        }
-    }*/
-
+   
     private void AcivateAxeInteraction()
     {
         float distance = Vector3.Distance(this.transform.position, positionToMoveAwayFrom.position);
-       // VRDebugConsol.Instance.LogMessageToConsol("Distance value: " + distance);
-      //  Debug.Log("[DEBUG] Distance value : " + distance);
+        
+        //Debug.Log(distance);
         if(treeScriptRef == null)
         {
             Debug.Log("TreeScriptRef In AxeAwayFromTree is not set");
             return;
         }
+        //[Info] Check if the axe far away from the tree and activate the interaction if it is.
         if( distance >= 0.75 && treeScriptRef.canInteractWithTree == false)
         {
+           // Debug.LogWarning("Axe is far away. Can interact with tree :" + treeScriptRef.canInteractWithTree + " || Distance :" + distance);
             treeScriptRef.SetCanInteractWithTree(true);
             //change color of the outline
             this.GetComponent<AxeOutlineManager>().setActiveOultine();
         }
-
-
     }
 }

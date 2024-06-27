@@ -14,7 +14,7 @@ public class GameManagerWoodCutting : MonoBehaviour
     private List<int> levelTreshold = new List<int>();
 
     [SerializeField]
-    private  const int nbLoogToChopToWIngGame = 15;
+    private  const int nbLoogToChopToWIngGame = 20;
     int numberofHitBeforeStopingGeneratingLog = 0;
 
     public void Start()
@@ -192,6 +192,9 @@ public class GameManagerWoodCutting : MonoBehaviour
                 _gameLevel = gameLevel.tree;
                 break;
             case gameLevel.tree:
+                _gameLevel = gameLevel.four;
+                break;
+            case gameLevel.four:
                 break;
             default:
                 break;
@@ -202,7 +205,8 @@ public class GameManagerWoodCutting : MonoBehaviour
         start,
         one,
         two,
-        tree
+        tree,
+        four
 
     }
 

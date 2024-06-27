@@ -57,7 +57,7 @@ public class PlayQuickSound : MonoBehaviour
 
     public void PlaySoundWhenPlayerGrab(UnityEngine.XR.Interaction.Toolkit.BaseInteractionEventArgs arg)
     {
-        Debug.Log(arg.interactorObject.transform.gameObject.name);
+       // Debug.Log(arg.interactorObject.transform.gameObject.name);
         if (arg.interactorObject.transform.CompareTag("Player"))
         {
             Play();
