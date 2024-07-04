@@ -43,7 +43,7 @@ public class StatTraking : MonoBehaviour
 
     private void Start()
     {
-        GameEvents.onGameReset += ResetStat;
+        GameEvents.current.onGameReset += ResetStat;
     }
 
     public void RemoveLife()

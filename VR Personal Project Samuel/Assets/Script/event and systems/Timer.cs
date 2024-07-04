@@ -26,7 +26,7 @@ public class Timer : MonoBehaviour
             GameEvents.current.onGameStart += StartTimer;
             GameEvents.current.onGameOver += StopTimer;
             GameEvents.current.onStopTimer += StopTimer;
-            GameEvents.onGameReset += ResetTimer;
+            GameEvents.current.onGameReset += ResetTimer;
 
         }
     }
@@ -43,7 +43,7 @@ public class Timer : MonoBehaviour
             GameEvents.current.onGameStart -= StartTimer;
             GameEvents.current.onGameOver -= StopTimer;
             GameEvents.current.onStopTimer -= StopTimer;
-            GameEvents.onGameReset -= ResetTimer;
+            GameEvents.current.onGameReset -= ResetTimer;
         }
     }
 

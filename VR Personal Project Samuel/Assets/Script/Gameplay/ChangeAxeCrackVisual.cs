@@ -23,13 +23,13 @@ public class ChangeAxeCrackVisual : MonoBehaviour
 
     public void OnEnable()
     {
-        GameEvents.onGameReset += ResetCrack;
+        GameEvents.current.onGameReset += ResetCrack;
     }
 
     public void OnDisable()
     {
      
-        GameEvents.onGameReset -= ResetCrack;
+        GameEvents.current.onGameReset -= ResetCrack;
     }
 
     public void IncreaseCrackVisual()

@@ -68,7 +68,7 @@ public class TreeManager : MonoBehaviour
         {
             GameEvents.current.onTimerOver += TimeOverAdapter;
         }
-        GameEvents.onGameReset += ResetGame;
+        GameEvents.current.onGameReset += ResetGame;
     }
 
     public void OnDisable()
@@ -77,7 +77,7 @@ public class TreeManager : MonoBehaviour
         {
             GameEvents.current.onTimerOver -= TimeOverAdapter;
         }
-        GameEvents.onGameReset -= ResetGame;
+        GameEvents.current.onGameReset -= ResetGame;
     }
 
     private void SetUpAllChild()

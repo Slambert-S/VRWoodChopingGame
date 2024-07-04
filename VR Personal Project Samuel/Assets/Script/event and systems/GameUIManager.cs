@@ -55,4 +55,9 @@ public class GameUIManager : MonoBehaviour
         }
     }
 
+    public void UpdateFinalTime(int time)
+    {
+        TimerUIRef.text = "Final time : " + time + " Second";
+    }
+
 }

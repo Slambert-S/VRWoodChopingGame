@@ -66,7 +66,7 @@ public class GameEvents : MonoBehaviour
         }
     }
 
-    public static event Action onGameReset;
+    public  event Action onGameReset;
     public  void GameReset()
     {
         if (onGameReset != null)
