@@ -28,7 +28,9 @@ public class TreeManager : MonoBehaviour
     private bool isTutorial = false;
     [SerializeField]
     private int tutorialLogToUse = 1;
-    
+
+    public levelLogSelectionRate[] logRate ;
+
 
     [Header("Debug control")]
     public bool startTreeEmpty = false;
@@ -273,6 +275,22 @@ public class TreeManager : MonoBehaviour
         if (isTutorial)
         {
             bottomLog.GetComponent<MeshRenderer>().enabled = true;
+            MeshRenderer renderer = null;
+
+            foreach (Transform child in bottomLog.transform)
+            {
+                if (child.gameObject.CompareTag("LogDecoration"))
+                {
+                    foreach (Transform subChild in child)
+                    {
+                        renderer = subChild.GetComponent<MeshRenderer>();
+                        if(renderer != null)
+                        {
+                            renderer.enabled = true;
+                        }
+                    }
+                }
+            }
         }
         bottomLog.GetComponent<ParentLog>().InitialiseLog();
         CreateNextTopChild();
@@ -292,6 +310,23 @@ public class TreeManager : MonoBehaviour
             GameObject newLog = SelectAndInstatiateNewLog();
             if (isTutorial)
             {
+                foreach (Transform item in newLog.transform)
+                {
+                    MeshRenderer renderer = item.GetComponent<MeshRenderer>();
+                    if(renderer != null)
+                    {
+                        renderer.enabled = false;
+                    }
+                    foreach (Transform subChild in item)
+                    {
+                        renderer = null;
+                        renderer = subChild.GetComponent<MeshRenderer>();
+                        if (renderer != null)
+                        {
+                            renderer.enabled = false;
+                        }
+                    }
+                }
                 newLog.GetComponent<MeshRenderer>().enabled = false;
             }
             newLog.transform.name = newName;
@@ -390,20 +425,20 @@ public class TreeManager : MonoBehaviour
             switch (gameManagerRef.GetGameLevel())
             {
                 case GameManagerWoodCutting.gameLevel.start:
-                    logIntToCreate = UnityEngine.Random.Range(1, 3);
+                    logIntToCreate = WeightedLogSelection(0);
                     gameManagerRef.IncreaseLevel();
                     break;
                 case GameManagerWoodCutting.gameLevel.one:
-                    logIntToCreate = UnityEngine.Random.Range(0, 3);
+                    logIntToCreate = WeightedLogSelection(1);
                     break;
                 case GameManagerWoodCutting.gameLevel.two:
-                    logIntToCreate = UnityEngine.Random.Range(0, 5);
+                    logIntToCreate = WeightedLogSelection(2);
                     break;
                 case GameManagerWoodCutting.gameLevel.tree:
-                    logIntToCreate = UnityEngine.Random.Range(0, 7);
+                    logIntToCreate = WeightedLogSelection(3);
                     break;
                 case GameManagerWoodCutting.gameLevel.four:
-                    logIntToCreate = UnityEngine.Random.Range(0, 9);
+                    logIntToCreate = WeightedLogSelection(4);
                     break;
                 default:
                     break;
@@ -413,32 +448,10 @@ public class TreeManager : MonoBehaviour
         {
             logIntToCreate = tutorialLogToUse;
         }
-        //[To DO : add a check to prefent the first log to be solid]
 
-        //[To Do : add a way to control wich log a created depending on the "Level"]
-
-        //int logIntToCreate = UnityEngine.Random.Range(1, 3);
         ChildLog.ActiveChildSide logTypeToCreate = (ChildLog.ActiveChildSide)logIntToCreate;
         GameObject newLog = null;
-      /*
-        switch (logTypeToCreate)
-        {
-            case ChildLog.ActiveChildSide.None:
-                newLog = Instantiate(logPrefab[0]);
-                break;
-            case ChildLog.ActiveChildSide.Left:
-                newLog = Instantiate(logPrefab[1]);
-                //return newLog;
-                break;
-            case ChildLog.ActiveChildSide.Right:
-                newLog = Instantiate(logPrefab[2]);
-                
-                //return newLog;
-                break;
-            default:
-                break;
-        }
-      */
+    
         switch (logTypeToCreate)
         {
             case ChildLog.ActiveChildSide.None:
@@ -514,6 +527,28 @@ public class TreeManager : MonoBehaviour
 
     }
 
+    private int WeightedLogSelection(int index)
+    {
+
+        // call function to get the total weight
+        float totalWeight = logRate[index].getTotalweight();
+        //get the random value using weight
+        float randomValue = UnityEngine.Random.value * totalWeight;
+        float cumulativeWeight = 0f;
+
+        //for all possible log type
+        for (int i = 0; i < logPrefab.Length; i++)
+        {
+            //cumulative weight + selectionRate
+            cumulativeWeight += logRate[index].getRate(i);
+           // Debug.Log("CumulativeWeight : " + cumulativeWeight + "  |  Random value :" + randomValue);
+            //check if its selected
+            if(randomValue < cumulativeWeight)
+                return i;
+        }
+        return 0;
+    }
+
     public void ActivateBottomLogOutline()
     {
         if(bottomLog.GetComponent<outlineManagment>() != null)
@@ -535,3 +570,74 @@ public class TreeManager : MonoBehaviour
 
    
 }
+[System.Serializable]
+public struct levelLogSelectionRate
+{
+    public float fullLogRate;
+    public float leftLogRate;
+    public float rightLogRate;
+    public float leftSingleDuckLogRate;
+    public float rightSingleDuckLogRate;
+    public float leftSingleBadDuckLogRate;
+    public float rightSingleBadDuckLogRate;
+    public float leftDoubleDuckLogRate;
+    public float righDoubleDucktLogRate;
+
+    public float getTotalweight()
+    {
+        float totalweight = 0;
+        totalweight += fullLogRate;
+        totalweight += leftLogRate;
+        totalweight += rightLogRate;
+        totalweight += leftSingleDuckLogRate;
+        totalweight += rightSingleDuckLogRate;
+        totalweight += leftSingleBadDuckLogRate;
+        totalweight += rightSingleBadDuckLogRate;
+        totalweight += leftDoubleDuckLogRate;
+        totalweight += righDoubleDucktLogRate;
+        return totalweight;
+    }
+
+    public float getRate(int index)
+    {
+        switch (index)
+        {   
+            case 0:
+                return fullLogRate;
+            case 1:
+                return leftLogRate;
+            case 2:
+                return rightLogRate;
+            case 3:
+                return leftSingleDuckLogRate;
+            case 4:
+                return rightSingleDuckLogRate;
+            case 5:
+                return leftSingleBadDuckLogRate;
+            case 6:
+                return rightSingleBadDuckLogRate;
+            case 7:
+                return leftDoubleDuckLogRate;
+            case 8:
+                return righDoubleDucktLogRate;
+            default:
+                break;
+        }
+        return 0;
+    }
+}
+
+/*
+ * 
+ * A =0
+ * random value = 0.7
+ *  0.5
+ * A+= 0.5 -> A = 0.5
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * */

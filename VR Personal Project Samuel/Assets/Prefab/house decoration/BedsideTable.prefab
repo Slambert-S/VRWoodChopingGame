@@ -85,7 +85,22 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: a600efddfb40f184099e10620def4448,
         type: 3}
       propertyPath: m_Name
-      value: cabinetBedDrawer
+      value: BedsideTable
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a600efddfb40f184099e10620def4448,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 4423045620967985251, guid: a600efddfb40f184099e10620def4448,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 5528078466911944822, guid: a600efddfb40f184099e10620def4448,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a600efddfb40f184099e10620def4448, type: 3}

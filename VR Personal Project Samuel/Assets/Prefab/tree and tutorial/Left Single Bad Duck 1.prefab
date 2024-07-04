@@ -445,6 +445,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Duck knife
       objectReference: {fileID: 0}
+    - target: {fileID: 3470736494988830843, guid: ddc4b427b60cd4c4b8f2d1cb0bfa52de,
+        type: 3}
+      propertyPath: m_TagString
+      value: LogDecoration
+      objectReference: {fileID: 0}
     - target: {fileID: 4278798808105317057, guid: ddc4b427b60cd4c4b8f2d1cb0bfa52de,
         type: 3}
       propertyPath: m_RootOrder

@@ -446,6 +446,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Duck knife
       objectReference: {fileID: 0}
+    - target: {fileID: 3470736494988830843, guid: ddc4b427b60cd4c4b8f2d1cb0bfa52de,
+        type: 3}
+      propertyPath: m_TagString
+      value: LogDecoration
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627409171413884721, guid: ddc4b427b60cd4c4b8f2d1cb0bfa52de,
+        type: 3}
+      propertyPath: m_TagString
+      value: LogDecoration
+      objectReference: {fileID: 0}
     - target: {fileID: 4278798808105317057, guid: ddc4b427b60cd4c4b8f2d1cb0bfa52de,
         type: 3}
       propertyPath: m_RootOrder
@@ -516,6 +526,11 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5444490652012671923, guid: ddc4b427b60cd4c4b8f2d1cb0bfa52de,
+        type: 3}
+      propertyPath: m_TagString
+      value: LogDecoration
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ddc4b427b60cd4c4b8f2d1cb0bfa52de, type: 3}
 --- !u!4 &3633410621376731510 stripped
@@ -535,6 +550,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Duck_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 3470736494988830843, guid: 9876188522d66014ea65009b6c8dd805,
+        type: 3}
+      propertyPath: m_TagString
+      value: LogDecoration
       objectReference: {fileID: 0}
     - target: {fileID: 4278798808105317057, guid: 9876188522d66014ea65009b6c8dd805,
         type: 3}

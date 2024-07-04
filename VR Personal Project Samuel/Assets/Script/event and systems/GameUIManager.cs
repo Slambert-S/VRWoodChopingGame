@@ -25,33 +25,6 @@ public class GameUIManager : MonoBehaviour
         GameEvents.current.onGameOver += GameOver;
     }
 
-   /* 
-    public void UpdateCountdownTimer(int time)
-    {
-        string text = "Time : " + time;
-        TimerUIRef.text = text;
-    }
-   */
-   
-    /*
-    public void UpdateLive(int value)
-    {
-        lifeUIRef.text = "Life : " + value; 
-    }
-   */
-
-    /*
-    public void UpdateGoodHit(int value)
-    {
-        goodHitUIRef.text = "Good hit : " + value;
-    }
-    */
-    
-    /*
-    public void UpdateBadHit(int value)
-    {
-        BadHitUIRef.text = "Bad hit : " + value;
-    }*/
 
     public void RestartGame()
     {

@@ -12,7 +12,8 @@ public class AxeAwayFromTree : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        AcivateAxeInteraction();
+        if(positionToMoveAwayFrom != null)
+            AcivateAxeInteraction();
     }
 
     public void updateTreeToInteractWith(Transform newposition, TreeManager treeManager)

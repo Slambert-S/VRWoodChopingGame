@@ -445,6 +445,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Duck_01
       objectReference: {fileID: 0}
+    - target: {fileID: 3470736494988830843, guid: 9876188522d66014ea65009b6c8dd805,
+        type: 3}
+      propertyPath: m_TagString
+      value: LogDecoration
+      objectReference: {fileID: 0}
     - target: {fileID: 4278798808105317057, guid: 9876188522d66014ea65009b6c8dd805,
         type: 3}
       propertyPath: m_RootOrder

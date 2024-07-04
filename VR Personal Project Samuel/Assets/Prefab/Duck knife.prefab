@@ -1,5 +1,121 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3627409171413884721
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 563656144388267509}
+  - component: {fileID: 9134851368090016543}
+  - component: {fileID: 3584110724939561952}
+  m_Layer: 0
+  m_Name: cookingKnife
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &563656144388267509
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3627409171413884721}
+  m_LocalRotation: {x: 0.46518, y: 0.7047149, z: -0.4239312, w: 0.3275162}
+  m_LocalPosition: {x: -1.6599998, y: 5.2799997, z: -0.41000006}
+  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4278798808105317057}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &9134851368090016543
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3627409171413884721}
+  m_Mesh: {fileID: -9074853219966738502, guid: 6ea3e90554d25af40ae94a98cb32712c, type: 3}
+--- !u!23 &3584110724939561952
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3627409171413884721}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 7922251121040759823, guid: 6ea3e90554d25af40ae94a98cb32712c, type: 3}
+  - {fileID: -8946930300590681946, guid: 6ea3e90554d25af40ae94a98cb32712c, type: 3}
+  - {fileID: -3092847324252717431, guid: 6ea3e90554d25af40ae94a98cb32712c, type: 3}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &6326275855932813709
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6665506616872348471}
+  m_Layer: 0
+  m_Name: cookingKnife
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &6665506616872348471
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6326275855932813709}
+  m_LocalRotation: {x: 0.46518, y: 0.7047149, z: -0.4239312, w: 0.3275162}
+  m_LocalPosition: {x: -1.66, y: 5.28, z: -0.41}
+  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 4278798808105317057}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 64.45, y: 171.036, z: 61.2}
 --- !u!1 &7109959505903914922
 GameObject:
   m_ObjectHideFlags: 0
@@ -14,7 +130,7 @@ GameObject:
   - component: {fileID: 2256575451753696551}
   m_Layer: 0
   m_Name: Cube (1)
-  m_TagString: Untagged
+  m_TagString: LogDecoration
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32,7 +148,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 4278798808105317057}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: -2.4, y: 0.27, z: 11.14}
 --- !u!33 &7292875659926307094
 MeshFilter:
@@ -111,7 +227,7 @@ GameObject:
   - component: {fileID: 406788703345740366}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: LogDecoration
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -129,7 +245,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 4278798808105317057}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: -2.4, y: 0.27, z: -67.3}
 --- !u!33 &2877969228217901054
 MeshFilter:
@@ -331,6 +447,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Duck knife
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 2a4b83fde18db6a47b08a4e827e0681d,
+        type: 3}
+      propertyPath: m_TagString
+      value: LogDecoration
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a4b83fde18db6a47b08a4e827e0681d, type: 3}
 --- !u!4 &4278798808105317057 stripped
@@ -339,92 +460,3 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 4389850364628047146}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &6560086106535906524
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 4278798808105317057}
-    m_Modifications:
-    - target: {fileID: -8679921383154817045, guid: 6ea3e90554d25af40ae94a98cb32712c,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 6ea3e90554d25af40ae94a98cb32712c,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 6ea3e90554d25af40ae94a98cb32712c,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 6ea3e90554d25af40ae94a98cb32712c,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 6ea3e90554d25af40ae94a98cb32712c,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -1.66
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 6ea3e90554d25af40ae94a98cb32712c,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 5.28
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 6ea3e90554d25af40ae94a98cb32712c,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.41
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 6ea3e90554d25af40ae94a98cb32712c,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.3275162
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 6ea3e90554d25af40ae94a98cb32712c,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.46518
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 6ea3e90554d25af40ae94a98cb32712c,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.7047149
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 6ea3e90554d25af40ae94a98cb32712c,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0.4239312
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 6ea3e90554d25af40ae94a98cb32712c,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 64.45
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 6ea3e90554d25af40ae94a98cb32712c,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 171.036
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 6ea3e90554d25af40ae94a98cb32712c,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 61.2
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 6ea3e90554d25af40ae94a98cb32712c,
-        type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 6ea3e90554d25af40ae94a98cb32712c,
-        type: 3}
-      propertyPath: m_Name
-      value: cookingKnife
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 6ea3e90554d25af40ae94a98cb32712c, type: 3}

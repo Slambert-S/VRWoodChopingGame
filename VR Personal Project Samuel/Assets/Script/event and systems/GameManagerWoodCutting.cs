@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class GameManagerWoodCutting : MonoBehaviour
 {
@@ -9,19 +11,16 @@ public class GameManagerWoodCutting : MonoBehaviour
     public bool gameCanStart = true;
     public bool canCrateNewLog = true;
 
-    private gameLevel _gameLevel = gameLevel.one;
+    private gameLevel _gameLevel = gameLevel.start;
     [SerializeField]
     private List<int> levelTreshold = new List<int>();
 
     [SerializeField]
-    private  const int nbLoogToChopToWIngGame = 20;
+    private  const int nbLoogToChopToWIngGame = 41;
     int numberofHitBeforeStopingGeneratingLog = 0;
+    public TMP_Text debugLevelDisplay;
+    public TMP_Text debugGoodLogHitDisplay;
 
-    public void Start()
-    {
-       
-
-    }
 
     private void OnEnable()
     {
@@ -58,32 +57,9 @@ public class GameManagerWoodCutting : MonoBehaviour
 
     public void UpdateGameState(int totalLogHit)
     {
-        //VRDebugConsol.Instance.LogMessageToConsol("Reached UpdateGameState");
-        
-        /*
-        switch (nbCutLog)
-        {
-            case 5:
-                // do nothing for now;
+        debugGoodLogHitDisplay.text = "Hit number : " + StatTraking.current.GetGoodLogHitCount();
 
-                break;
-            case numberofHitBeforeStopingGeneratingLog:
-                // stop generating new log;
-                canCrateNewLog = false;
-                
-                break;
-            case nbLoogToChopToWIngGame:
-                //end game;
-                GameOver();
-                GameEvents.current.GameOver();
-
-                break;
-            default:
-                break;
-        }
-        */
-
-        if(StatTraking.current.GetGoodLogHitCount() == nbLoogToChopToWIngGame - 3 && numberofHitBeforeStopingGeneratingLog==0)
+        if (StatTraking.current.GetGoodLogHitCount() == nbLoogToChopToWIngGame - 3 && numberofHitBeforeStopingGeneratingLog==0)
         {
             numberofHitBeforeStopingGeneratingLog = (totalLogHit + StatTraking.current.GetLifeRemaining());
         }
@@ -199,6 +175,9 @@ public class GameManagerWoodCutting : MonoBehaviour
             default:
                 break;
         }
+        //Display the debug levelà
+        debugLevelDisplay.text = " Current Level : " + _gameLevel;
+
     }
     public enum gameLevel
     {
