@@ -11,6 +11,7 @@ public class GameManagerWoodCutting : MonoBehaviour
     public bool gameCanStart = true;
     public bool canCrateNewLog = true;
 
+    [SerializeField]
     private gameLevel _gameLevel = gameLevel.start;
     [SerializeField]
     private List<int> levelTreshold = new List<int>();
@@ -145,6 +146,7 @@ public class GameManagerWoodCutting : MonoBehaviour
     {
         SetGameToPaused();
         SetGameCanStart(false);
+        _gameLevel = gameLevel.start;
     }
 
     private void GameReset()

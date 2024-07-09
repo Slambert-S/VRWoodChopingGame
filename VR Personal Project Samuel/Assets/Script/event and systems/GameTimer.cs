@@ -6,8 +6,8 @@ public class GameTimer : MonoBehaviour
 {
     public int totalTime = 0;
     // Start is called before the first frame update
-   
 
+    private Coroutine timerCoroutine;
     private void OnEnable()
     {
         if (GameEvents.current == null)
@@ -39,22 +39,22 @@ public class GameTimer : MonoBehaviour
     }
     private void StartTimer()
     {
-        StartCoroutine(TimerRoutine());
+        timerCoroutine = StartCoroutine(TimerRoutine());
     }
 
     private void StopTimer()
     {
-        StopCoroutine(TimerRoutine());
+         StopCoroutine(timerCoroutine);
         //Display score on the UI
         GameUIManager.current.UpdateFinalTime(totalTime);
     }
 
     private void ResetTimer()
     {
-        Debug.LogError("In reset time Before :" + totalTime);
+       // Debug.LogError("In reset time Before :" + totalTime);
         totalTime = 0;
-        Debug.LogWarning(" in reset time");
-        Debug.LogError("In reset time After :" + totalTime);
+      //  Debug.LogWarning(" in reset time");
+        //Debug.LogError("In reset time After :" + totalTime);
     }
 
     IEnumerator TimerRoutine()
@@ -64,6 +64,7 @@ public class GameTimer : MonoBehaviour
         while (true)
         {
             totalTime += 1;
+            GameUIManager.current.UpdateFinalTime(totalTime);
             yield return delay;
         }
     }

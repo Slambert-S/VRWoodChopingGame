@@ -84,6 +84,16 @@ public class GameEvents : MonoBehaviour
         }
     }
 
+    public static event Action<bool> onChangePlayerHeight;
+
+    public void OnChangePlayerHeight(bool value)
+    {
+        if(onChangePlayerHeight != null)
+        {
+            onChangePlayerHeight(value);
+        }
+    }
+
 
 
 }

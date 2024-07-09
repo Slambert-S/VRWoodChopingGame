@@ -31,7 +31,7 @@ public class GameUIManager : MonoBehaviour
         //DisplayRestartButton(false);
 
         GameEvents.current.GameReset();
-        DisplayRestartButton(false);
+        //DisplayRestartButton(false);
     }
     private void GameOver()
     {
