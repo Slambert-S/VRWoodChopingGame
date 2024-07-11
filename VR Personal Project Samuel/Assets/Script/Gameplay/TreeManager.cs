@@ -551,10 +551,14 @@ public class TreeManager : MonoBehaviour
 
     public void ActivateBottomLogOutline()
     {
-        if(bottomLog.GetComponent<outlineManagment>() != null)
+        if (bottomLog != null)
         {
-            bottomLog.GetComponent<outlineManagment>().ActivateOutline();
+            if (bottomLog.GetComponent<outlineManagment>() != null)
+            {
+                bottomLog.GetComponent<outlineManagment>().ActivateOutline();
+            }
         }
+        
     }
 
     public void DeactivateOutlineIfPLayerIsAway()

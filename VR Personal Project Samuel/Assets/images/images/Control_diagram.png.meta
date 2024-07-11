@@ -1,0 +1,235 @@
+fileFormatVersion: 2
+guid: c1288791960d12643ad6d524e757404e
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Control_diagram_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1028
+        width: 932
+        height: 971
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: defc0a6d1e0860943859da1560368a65
+      internalID: 1142604745
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Control_diagram_33
+      rect:
+        serializedVersion: 2
+        x: 1073
+        y: 94
+        width: 841
+        height: 911
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 95c2b7d385513d644b4d8ea73fb865e7
+      internalID: -2037917094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Control_diagram_4: -2044819074
+      Control_diagram_52: 301726930
+      Control_diagram_12: 2039897516
+      Control_diagram_0: -629124945
+      Control_diagram_31: 332151398
+      Control_diagram_36: -854735031
+      Control_diagram_35: 1628139858
+      Control_diagram_29: -410258980
+      Control_diagram_9: 776223435
+      Control_diagram_19: 619013199
+      Control_diagram_3: 1036807519
+      Control_diagram_38: -329760169
+      Control_diagram_57: 1972872985
+      Control_diagram_47: -2045954103
+      Control_diagram_30: -110793082
+      Control_diagram_49: -1484200343
+      Control_diagram_21: -969003163
+      Control_diagram_18: -1868501401
+      Control_diagram_32: 393004917
+      Control_diagram_48: 1996648392
+      Control_diagram_43: -1922996262
+      Control_diagram_7: 715348083
+      Control_diagram_26: 1741078721
+      Control_diagram_8: -1262664644
+      Control_diagram_13: -244745736
+      Control_diagram_24: 668338236
+      Control_diagram_28: -1038233832
+      Control_diagram_41: -1519022786
+      Control_diagram_42: 856515175
+      Control_diagram_50: -1967639979
+      Control_diagram_22: 2043703858
+      Control_diagram_54: 1849877852
+      Control_diagram_53: 1083486671
+      Control_diagram_45: -825029067
+      Control_diagram_20: 626197957
+      Control_diagram_44: 391862430
+      Control_diagram_14: -1871580255
+      Control_diagram_37: 16375729
+      Control_diagram_25: 2112252778
+      Control_diagram_51: -1916322773
+      Control_diagram_39: 2091218603
+      Control_diagram_27: -297307422
+      Control_diagram_33: -2037917094
+      Control_diagram_10: -248324137
+      Control_diagram_15: -1279652396
+      Control_diagram_23: 476707550
+      Control_diagram_6: 1142604745
+      Control_diagram_55: -1372394578
+      Control_diagram_34: 808087201
+      Control_diagram_56: -926096939
+      Control_diagram_40: 1017128679
+      Control_diagram_11: -401798844
+      Control_diagram_17: -1943310297
+      Control_diagram_16: -1110290053
+      Control_diagram_46: -632772163
+      Control_diagram_2: 2121407328
+      Control_diagram_5: -774524455
+      Control_diagram_1: 1136911212
+      Control_diagram_58: -1101902193
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
