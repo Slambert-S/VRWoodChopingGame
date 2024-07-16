@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/testingNewLog.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    path: Assets/Scenes/wood cuttingV2.unity
+    guid: fcf116e93b3d57e47af29646e5ef3388
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: ed72be55522c8448bae8b0d66fa21adf,
       type: 2}
