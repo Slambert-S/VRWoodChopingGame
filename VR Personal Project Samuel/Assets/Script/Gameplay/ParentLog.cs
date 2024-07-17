@@ -51,6 +51,11 @@ public class ParentLog : MonoBehaviour
     {
        
         SetUpObjectRef();
+        /*if (this.GetComponentInParent<TreeManager>().getIsTutorial() == true)
+        {
+            GameEvents.current.onGameOver -= RemoveObjectWhenGameOver;
+        }
+        Debug.Log(this.GetComponentInParent<TreeManager>().getIsTutorial());*/
         
     }
     void OnEnable()
@@ -61,7 +66,11 @@ public class ParentLog : MonoBehaviour
         }
         else
         {
-            GameEvents.current.onGameOver += RemoveObjectWhenGameOver;
+            /*if (this.GetComponentInParent<TreeManager>().getIsTutorial() == false)
+            {*/
+                GameEvents.current.onGameOver += RemoveObjectWhenGameOver;
+                
+           // }
         }
     }
     void OnDisable()
@@ -72,7 +81,12 @@ public class ParentLog : MonoBehaviour
         }
         else
         {
-            GameEvents.current.onGameOver -= RemoveObjectWhenGameOver;
+            /*if (this.GetComponentInParent<TreeManager>().getIsTutorial() == false)
+            {*/
+               
+                 GameEvents.current.onGameOver -= RemoveObjectWhenGameOver;
+
+            //}
         }
     }
 

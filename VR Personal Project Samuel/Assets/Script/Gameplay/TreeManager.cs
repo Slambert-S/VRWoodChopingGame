@@ -572,6 +572,12 @@ public class TreeManager : MonoBehaviour
         }
     }
 
+    public bool getIsTutorial()
+    {   
+        return isTutorial;
+    }
+
+
    
 }
 [System.Serializable]

@@ -23,6 +23,7 @@ public class GameUIManager : MonoBehaviour
     private void Start()
     {
         GameEvents.current.onGameOver += GameOver;
+        GameEvents.current.onGameReset += hideButtonWorkAround;
     }
 
 
@@ -31,7 +32,7 @@ public class GameUIManager : MonoBehaviour
         //DisplayRestartButton(false);
 
         GameEvents.current.GameReset();
-        DisplayRestartButton(false);
+        //DisplayRestartButton(false);
     }
     private void GameOver()
     {
@@ -40,7 +41,10 @@ public class GameUIManager : MonoBehaviour
         // Hide life show more stat
 
     }
-
+    public void hideButtonWorkAround()
+    {
+        DisplayRestartButton(false);
+    }
     public void DisplayRestartButton(bool value)
     {
         if(value == true)

@@ -12,6 +12,10 @@ public class ToggleRay : MonoBehaviour
     [Tooltip("Switch even if an object is selected")]
     public bool forceToggle = false;
 
+    [Tooltip("Indicate if the ray need to start active")]
+    public bool startActive = true;
+
+
     [Tooltip("The direct interactor that's switched to")]
     public UnityEngine.XR.Interaction.Toolkit.Interactors.XRDirectInteractor directInteractor = null;
 
@@ -22,6 +26,7 @@ public class ToggleRay : MonoBehaviour
     {
         rayInteractor = GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactors.XRRayInteractor>();
         SwitchInteractors(false);
+        SwitchInteractors(startActive);
     }
 
     public void ActivateRay()

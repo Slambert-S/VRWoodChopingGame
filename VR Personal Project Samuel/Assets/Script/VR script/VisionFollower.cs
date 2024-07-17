@@ -42,7 +42,7 @@ public class VisionFollower : MonoBehaviour
         float dotProduct = Vector3.Dot(_cameraTransform.forward, toObject.normalized);
 
         //IF the angle is greater than 30* then return true;
-        if(dotProduct < 0.866f)
+        if(dotProduct < 0.93f)
         {
             return true;
         }
