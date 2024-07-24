@@ -49,19 +49,22 @@ public class GameUIManager : MonoBehaviour
     {
         if(value == true)
         {
-            restartButtonRef.gameObject.SetActive(true);
+            
             this.GetComponent<Canvas>().enabled = true;
         }
         else
         {
-            restartButtonRef.gameObject.SetActive(false);
+            if (restartButtonRef != null)
+            {
+                restartButtonRef.gameObject.SetActive(false);
+            }
             this.GetComponent<Canvas>().enabled = false;
         }
     }
 
     public void UpdateFinalTime(int time)
     {
-        TimerUIRef.text = "Final time : <br> " + time + " Second";
+        TimerUIRef.text = "Final time : <br> " + time + " Seconds";
     }
 
 }

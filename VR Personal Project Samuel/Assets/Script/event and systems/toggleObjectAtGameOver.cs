@@ -48,7 +48,12 @@ public class toggleObjectAtGameOver : MonoBehaviour
             {
                 foreach (Transform child in ObjectToControll.transform)
                 {
-                    child.gameObject.SetActive(isObjectActive);
+                    child.gameObject.GetComponent<MeshRenderer>().enabled = false;
+                    BoxCollider oBC = child.gameObject.GetComponent<BoxCollider>();
+                    if(oBC != null)
+                    {
+                        oBC.enabled = false;
+                    }
                 }
             }
             
@@ -70,7 +75,13 @@ public class toggleObjectAtGameOver : MonoBehaviour
         {
             foreach (Transform child in ObjectToControll.transform)
             {
-                child.gameObject.SetActive(isObjectActive);
+                child.gameObject.GetComponent<MeshRenderer>().enabled = true;
+                BoxCollider oBC = child.gameObject.GetComponent<BoxCollider>();
+                if (oBC != null)
+                {
+                    oBC.enabled = true;
+                }
+
             }
         }
         

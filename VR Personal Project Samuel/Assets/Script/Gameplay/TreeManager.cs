@@ -67,8 +67,8 @@ public class TreeManager : MonoBehaviour
         if (!isTutorial)
         {
             GameEvents.current.onTimerOver += TimeOverAdapter;
+            GameEvents.current.onGameReset += ResetGame;
         }
-        GameEvents.current.onGameReset += ResetGame;
     }
 
     public void OnDisable()
@@ -76,8 +76,8 @@ public class TreeManager : MonoBehaviour
         if (!isTutorial)
         {
             GameEvents.current.onTimerOver -= TimeOverAdapter;
+            GameEvents.current.onGameReset -= ResetGame;
         }
-        GameEvents.current.onGameReset -= ResetGame;
     }
 
     private void SetUpAllChild()
@@ -111,38 +111,47 @@ public class TreeManager : MonoBehaviour
         }
 
         //prevent the game from starting if required.
-        if (gameManagerRef.gameCanStart == false)
+        if (!isTutorial)
         {
-            Debug.Log("Can start the game yet");
-            return;
+            if (gameManagerRef.gameCanStart == false)
+            {
+                Debug.Log("Can start the game yet");
+                return;
+            }
         }
+
 
         if (gameManagerRef.gameIsStarted == false && goodSide == false)
         {
-            Debug.Log("Can't start the game because you hit the wrong side");
-            SetCanInteractWithTree(false);
-            //Update the transfom the axe need to move away to reset.
-            lastInteractingObject.GetComponentInChildren<AxeAwayFromTree>().updateTreeToInteractWith(originalBottomLogPositionRef,this);
-            return;
+                Debug.Log("Can't start the game because you hit the wrong side");
+                SetCanInteractWithTree(false);
+                //Update the transfom the axe need to move away to reset.
+                lastInteractingObject.GetComponentInChildren<AxeAwayFromTree>().updateTreeToInteractWith(originalBottomLogPositionRef,this);
+                return;
         }
+      
 
-        if (gameManagerRef.gameIsStarted == false && goodSide == true)
+        if (gameManagerRef.gameIsStarted == false && goodSide == true && isTutorial == false)
         {
-            GameEvents.current.GameIsStarted();
-            if (isTutorial)
-            {
-                GameEvents.current.StopTimer();
-            }
-            //gameIsStarted = true;
+                GameEvents.current.GameIsStarted();
+                if (isTutorial)
+                {
+                    GameEvents.current.StopTimer();
+                }
+                //gameIsStarted = true;
         }
         
+
         ReplaceBottomChild(goodSide);
     }
 
     private void ReplaceBottomChild(bool goodSide)
     {
-       
-        
+
+        if (isTutorial)
+        {
+            Debug.Log("tutorial in replaceBottomChild");
+        }
         // [Objective] : Prevent te player to keep interacting with the tree.
         //target the AXE
         SetCanInteractWithTree(false);
@@ -455,33 +464,33 @@ public class TreeManager : MonoBehaviour
         switch (logTypeToCreate)
         {
             case ChildLog.ActiveChildSide.None:
-                newLog = Instantiate(logPrefab[0]);
+                newLog = Instantiate(logPrefab[0],this.gameObject.transform);
                 break;
             case ChildLog.ActiveChildSide.Left:
-                newLog = Instantiate(logPrefab[1]);
+                newLog = Instantiate(logPrefab[1], this.gameObject.transform);
                 //return newLog;
                 break;
             case ChildLog.ActiveChildSide.Right:
-                newLog = Instantiate(logPrefab[2]);
+                newLog = Instantiate(logPrefab[2],this.gameObject.transform);
                 //return newLog;
                 break;
             case ChildLog.ActiveChildSide.LeftSingleDuck:
-                newLog = Instantiate(logPrefab[3]);
+                newLog = Instantiate(logPrefab[3],this.gameObject.transform);
                 break;
             case ChildLog.ActiveChildSide.RightSingleDuck:
-                newLog = Instantiate(logPrefab[4]);
+                newLog = Instantiate(logPrefab[4],this.gameObject.transform);
                 break;
             case ChildLog.ActiveChildSide.LeftSingleBadDock:
-                newLog = Instantiate(logPrefab[5]);
+                newLog = Instantiate(logPrefab[5],this.gameObject.transform);
                 break;
             case ChildLog.ActiveChildSide.RightSingleBadDuck:
-                newLog = Instantiate(logPrefab[6]);
+                newLog = Instantiate(logPrefab[6],this.gameObject.transform);
                 break;
             case ChildLog.ActiveChildSide.LeftDoubleDuck:
-                newLog = Instantiate(logPrefab[7]);
+                newLog = Instantiate(logPrefab[7],this.gameObject.transform);
                 break;
             case ChildLog.ActiveChildSide.RightDoubleDuck:
-                newLog = Instantiate(logPrefab[8]);
+                newLog = Instantiate(logPrefab[8],this.gameObject.transform);
                 break;
             default:
                 break;
@@ -574,7 +583,15 @@ public class TreeManager : MonoBehaviour
 
     public bool getIsTutorial()
     {   
-        return isTutorial;
+        if(isTutorial == true)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+        //return isTutorial;
     }
 
 
